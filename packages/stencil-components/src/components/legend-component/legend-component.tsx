@@ -6,7 +6,7 @@ export interface LegendItem {
 }
 
 @Component({
-  tag: 'legend-component',
+  tag: 'pv-legend-component',
   styleUrl: 'legend-component.scss',
   shadow: true,
 })

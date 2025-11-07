@@ -1,18 +1,20 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { LegendComponent } from '../legend-component';
 
-describe('legend-component', () => {
+describe('pv-legend-component', () => {
   it('renders', async () => {
     const page = await newSpecPage({
       components: [LegendComponent],
-      html: `<legend-component></legend-component>`,
+      html: `<pv-legend-component></pv-legend-component>`,
     });
     expect(page.root).toEqualHtml(`
-      <legend-component>
+      <pv-legend-component>
         <mock:shadow-root>
-          <slot></slot>
+          <div class="legend">
+            <div class="legend-items"></div>
+          </div>
         </mock:shadow-root>
-      </legend-component>
+      </pv-legend-component>
     `);
   });
 });

@@ -8,16 +8,6 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { LegendItem } from "./components/legend-component/legend-component";
 export { LegendItem } from "./components/legend-component/legend-component";
 export namespace Components {
-    interface LegendComponent {
-        /**
-          * The legend items
-         */
-        "items": LegendItem[] | string;
-        /**
-          * The legend title
-         */
-        "legendTitle"?: string;
-    }
     interface MyComponent {
         /**
           * The first name
@@ -32,36 +22,36 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface PvLegendComponent {
+        /**
+          * The legend items
+         */
+        "items": LegendItem[] | string;
+        /**
+          * The legend title
+         */
+        "legendTitle"?: string;
+    }
 }
 declare global {
-    interface HTMLLegendComponentElement extends Components.LegendComponent, HTMLStencilElement {
-    }
-    var HTMLLegendComponentElement: {
-        prototype: HTMLLegendComponentElement;
-        new (): HTMLLegendComponentElement;
-    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLPvLegendComponentElement extends Components.PvLegendComponent, HTMLStencilElement {
+    }
+    var HTMLPvLegendComponentElement: {
+        prototype: HTMLPvLegendComponentElement;
+        new (): HTMLPvLegendComponentElement;
+    };
     interface HTMLElementTagNameMap {
-        "legend-component": HTMLLegendComponentElement;
         "my-component": HTMLMyComponentElement;
+        "pv-legend-component": HTMLPvLegendComponentElement;
     }
 }
 declare namespace LocalJSX {
-    interface LegendComponent {
-        /**
-          * The legend items
-         */
-        "items"?: LegendItem[] | string;
-        /**
-          * The legend title
-         */
-        "legendTitle"?: string;
-    }
     interface MyComponent {
         /**
           * The first name
@@ -76,17 +66,27 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface PvLegendComponent {
+        /**
+          * The legend items
+         */
+        "items"?: LegendItem[] | string;
+        /**
+          * The legend title
+         */
+        "legendTitle"?: string;
+    }
     interface IntrinsicElements {
-        "legend-component": LegendComponent;
         "my-component": MyComponent;
+        "pv-legend-component": PvLegendComponent;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "legend-component": LocalJSX.LegendComponent & JSXBase.HTMLAttributes<HTMLLegendComponentElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "pv-legend-component": LocalJSX.PvLegendComponent & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
         }
     }
 }
