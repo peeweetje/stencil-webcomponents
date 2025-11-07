@@ -1,6 +1,9 @@
 {
-   "private": true,
-   "workspaces": [
-     "stencil-components"
-   ]
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
+  "scripts": {
+    "start": "yarn workspace stencil-components start"
+  }
 }
