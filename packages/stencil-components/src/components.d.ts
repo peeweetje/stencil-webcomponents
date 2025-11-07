@@ -5,7 +5,19 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { LegendItem } from "./components/legend-component/legend-component";
+export { LegendItem } from "./components/legend-component/legend-component";
 export namespace Components {
+    interface LegendComponent {
+        /**
+          * The legend items
+         */
+        "items": LegendItem[] | string;
+        /**
+          * The legend title
+         */
+        "legendTitle"?: string;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +34,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLLegendComponentElement extends Components.LegendComponent, HTMLStencilElement {
+    }
+    var HTMLLegendComponentElement: {
+        prototype: HTMLLegendComponentElement;
+        new (): HTMLLegendComponentElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +47,21 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "legend-component": HTMLLegendComponentElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface LegendComponent {
+        /**
+          * The legend items
+         */
+        "items"?: LegendItem[] | string;
+        /**
+          * The legend title
+         */
+        "legendTitle"?: string;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +77,7 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "legend-component": LegendComponent;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +85,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "legend-component": LocalJSX.LegendComponent & JSXBase.HTMLAttributes<HTMLLegendComponentElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
