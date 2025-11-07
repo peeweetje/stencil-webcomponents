@@ -27,7 +27,10 @@
       "types": "./loader/index.d.ts"
     }
   },
-  "repository": "https://github.com/stenciljs/component-starter.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stenciljs/component-starter.git"
+  },
   "files": [
     "dist/",
     "loader/"
