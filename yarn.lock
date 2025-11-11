@@ -1567,6 +1567,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-a11y@npm:8.6.14":
+  version: 8.6.14
+  resolution: "@storybook/addon-a11y@npm:8.6.14"
+  dependencies:
+    "@storybook/addon-highlight": "npm:8.6.14"
+    "@storybook/global": "npm:^5.0.0"
+    "@storybook/test": "npm:8.6.14"
+    axe-core: "npm:^4.2.0"
+  peerDependencies:
+    storybook: ^8.6.14
+  checksum: 10c0/bc1ea6bc4f4229f2a88f40a1fc768628cad7744ca39676228a99656211942d96783d1d20aa475ac03bc653c29ed896a6179b3b17c8226effb598111cd8c8d146
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-actions@npm:8.6.14":
   version: 8.6.14
   resolution: "@storybook/addon-actions@npm:8.6.14"
@@ -2402,6 +2416,13 @@ __metadata:
   dependencies:
     possible-typed-array-names: "npm:^1.0.0"
   checksum: 10c0/d07226ef4f87daa01bd0fe80f8f310982e345f372926da2e5296aecc25c41cab440916bbaa4c5e1034b453af3392f67df5961124e4b586df1e99793a1374bdb2
+  languageName: node
+  linkType: hard
+
+"axe-core@npm:^4.2.0":
+  version: 4.11.0
+  resolution: "axe-core@npm:4.11.0"
+  checksum: 10c0/7d7020a568a824c303711858c2fcfe56d001d27e46c0c2ff75dc31b436cfddfd4857a301e70536cc9e64829d25338f7fb782102d23497ebdc66801e9900fc895
   languageName: node
   linkType: hard
 
@@ -5528,6 +5549,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react-library@workspace:packages/react-library"
   dependencies:
+    "@storybook/addon-a11y": "npm:8.6.14"
     "@storybook/addon-essentials": "npm:^8.0.0"
     "@storybook/addon-interactions": "npm:^8.0.0"
     "@storybook/addon-links": "npm:^8.0.0"
