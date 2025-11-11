@@ -25,6 +25,10 @@
       "import": "./loader/index.js",
       "require": "./loader/index.cjs",
       "types": "./loader/index.d.ts"
+    },
+    "./dist/custom-elements/index.js": {
+      "import": "./dist/custom-elements/index.js",
+      "types": "./dist/custom-elements/index.d.ts"
     }
   },
   "repository": {

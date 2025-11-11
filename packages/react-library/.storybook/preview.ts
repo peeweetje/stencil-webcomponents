@@ -1,5 +1,8 @@
 import type { Preview } from '@storybook/react';
 import '../src/Legend/Legend.scss';
+import { defineCustomElements } from 'stencil-components/loader';
+
+defineCustomElements();
 
 const preview: Preview = {
   parameters: {
