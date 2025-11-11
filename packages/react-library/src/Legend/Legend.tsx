@@ -7,7 +7,7 @@ export interface LegendItem {
 }
 
 export interface LegendProps {
-  items: LegendItem[];
+  items?: LegendItem[];
   legendTitle?: string;
   className?: string;
 }
@@ -17,7 +17,7 @@ const Legend: React.FC<LegendProps> = ({ items, legendTitle, className }) => {
     <div className={`legend ${className || ''}`}>
       {legendTitle && <h4 className="legend-title">{legendTitle}</h4>}
       <div className="legend-items">
-        {items.map((item, index) => (
+        {(items || []).map((item, index) => (
           <div key={index} className="legend-item">
             <span
               className="legend-color"

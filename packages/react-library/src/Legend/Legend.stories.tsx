@@ -8,15 +8,34 @@ export default {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  argTypes: {
+    legendTitle: {
+      control: 'text',
+      description: 'Optional title for the legend',
+    },
+    items: {
+      control: { type: 'object' },
+      description: 'Array of legend items with label and color',
+    },
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes',
+    },
+  },
 };
 
 export const Default = {
-  args: {
-    items: [
-      { label: 'Active', color: '#00ff00' },
-      { label: 'Inactive', color: '#ff0000' },
-      { label: 'Pending', color: '#ffff00' },
-    ],
+  args:{
+    items:[{
+      "label": "Active",
+      "color": "#00ff00"
+    }, {
+      "label": "Inactive",
+      "color": "#ff0000"
+    }, {
+      "label": "Pending",
+      "color": "#ffff00"
+    }],
   },
 };
 
@@ -30,8 +49,16 @@ export const WithTitle = {
   },
 };
 
+
 export const Empty = {
-  args: {
-    items: [],
+  args:{
+    items:[],
+  },
+  parameters:{
+    docs:{
+      description:{
+        story:'Legend with no items.',
+      },
+    },
   },
 };
