@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 import '../src/Legend/Legend.scss';
 import { defineCustomElements } from 'stencil-components/loader';
 
