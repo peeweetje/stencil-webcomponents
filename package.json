@@ -7,7 +7,7 @@
   "scripts": {
     "start": "yarn workspace stencil-components start",
     "build": "yarn workspace stencil-components build && yarn workspace react-library build",
-    "storybook": "yarn workspace react-library storybook",
+    "storybook": "yarn workspace stencil-components build && yarn workspace react-library storybook",
     "build-storybook": "yarn workspace react-library build-storybook"
   },
   "resolutions": {
