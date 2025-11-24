@@ -1,6 +1,6 @@
 {
   "private": true,
-  "packageManager": "yarn@4.5.1",
+  "packageManager": "yarn@4.5.3",
   "workspaces": [
     "packages/**"
   ],
@@ -11,6 +11,6 @@
     "build-storybook": "yarn workspace react-library build-storybook"
   },
   "resolutions": {
-    "path-scurry": "^1.10.1"
+    "path-scurry": "^2.0.0"
   }
 }
