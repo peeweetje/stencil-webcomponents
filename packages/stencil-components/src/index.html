@@ -11,9 +11,17 @@
   <body>
     <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
 
-    <pv-legend-component
+  <pv-legend-component
       legend-title="Chart Legend"
       items='[{"label": "Series 1", "color": "#ff0000"}, {"label": "Series 2", "color": "#00ff00"}, {"label": "Series 3", "color": "#0000ff"}]'>
     </pv-legend-component>
+
+    <hr />
+
+    <h3>Table Component</h3>
+    <pv-table-component
+      columns='[{"key": "id", "label": "ID"}, {"key": "name", "label": "Name"}, {"key": "role", "label": "Role"}]'
+      data='[{"id": 1, "name": "John Doe", "role": "Admin"}, {"id": 2, "name": "Jane Smith", "role": "User"}, {"id": 3, "name": "Bob Johnson", "role": "Editor"}]'
+    ></pv-table-component>
   </body>
 </html>
