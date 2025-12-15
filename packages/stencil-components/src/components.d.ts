@@ -43,6 +43,11 @@ export namespace Components {
           * The table data
          */
         "data": any[] | string;
+        /**
+          * Items to display per page
+          * @default 5
+         */
+        "itemsPerPage": number;
     }
 }
 declare global {
@@ -104,6 +109,11 @@ declare namespace LocalJSX {
           * The table data
          */
         "data"?: any[] | string;
+        /**
+          * Items to display per page
+          * @default 5
+         */
+        "itemsPerPage"?: number;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;

@@ -19,9 +19,28 @@
     <hr />
 
     <h3>Table Component</h3>
-    <pv-table-component
-      columns='[{"key": "id", "label": "ID"}, {"key": "name", "label": "Name"}, {"key": "role", "label": "Role"}]'
-      data='[{"id": 1, "name": "John Doe", "role": "Admin"}, {"id": 2, "name": "Jane Smith", "role": "User"}, {"id": 3, "name": "Bob Johnson", "role": "Editor"}]'
-    ></pv-table-component>
+    <pv-table-component id="demo-table"></pv-table-component>
+
+    <script>
+      const table = document.getElementById('demo-table');
+      table.columns = [
+        { key: 'id', label: 'ID' },
+        { key: 'name', label: 'Name' },
+        { key: 'role', label: 'Role' },
+        { key: 'status', label: 'Status' }
+      ];
+      
+      const roles = ['Admin', 'Editor', 'User', 'Guest'];
+      const statuses = ['Active', 'Inactive', 'Pending'];
+      
+      table.data = Array.from({ length: 50 }, (_, i) => ({
+        id: i + 1,
+        name: `User ${i + 1}`,
+        role: roles[i % 4],
+        status: statuses[i % 3]
+      }));
+      
+      table.itemsPerPage = 10;
+    </script>
   </body>
 </html>
