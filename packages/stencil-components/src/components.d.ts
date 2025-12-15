@@ -6,7 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { LegendItem } from "./components/legend-component/legend-component";
+import { TableColumn } from "./components/table-component/table-component";
 export { LegendItem } from "./components/legend-component/legend-component";
+export { TableColumn } from "./components/table-component/table-component";
 export namespace Components {
     interface MyComponent {
         /**
@@ -32,6 +34,16 @@ export namespace Components {
          */
         "legendTitle"?: string;
     }
+    interface PvTableComponent {
+        /**
+          * The table column definitions
+         */
+        "columns": TableColumn[] | string;
+        /**
+          * The table data
+         */
+        "data": any[] | string;
+    }
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -46,9 +58,16 @@ declare global {
         prototype: HTMLPvLegendComponentElement;
         new (): HTMLPvLegendComponentElement;
     };
+    interface HTMLPvTableComponentElement extends Components.PvTableComponent, HTMLStencilElement {
+    }
+    var HTMLPvTableComponentElement: {
+        prototype: HTMLPvTableComponentElement;
+        new (): HTMLPvTableComponentElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
         "pv-legend-component": HTMLPvLegendComponentElement;
+        "pv-table-component": HTMLPvTableComponentElement;
     }
 }
 declare namespace LocalJSX {
@@ -76,9 +95,20 @@ declare namespace LocalJSX {
          */
         "legendTitle"?: string;
     }
+    interface PvTableComponent {
+        /**
+          * The table column definitions
+         */
+        "columns"?: TableColumn[] | string;
+        /**
+          * The table data
+         */
+        "data"?: any[] | string;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
         "pv-legend-component": PvLegendComponent;
+        "pv-table-component": PvTableComponent;
     }
 }
 export { LocalJSX as JSX };
@@ -87,6 +117,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "pv-legend-component": LocalJSX.PvLegendComponent & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
+            "pv-table-component": LocalJSX.PvTableComponent & JSXBase.HTMLAttributes<HTMLPvTableComponentElement>;
         }
     }
 }
