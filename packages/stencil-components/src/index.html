@@ -7,29 +7,235 @@
 
     <script type="module" src="/build/stencil-components.esm.js"></script>
     <script nomodule src="/build/stencil-components.js"></script>
+
+    <style>
+      :root {
+        --sidebar-width: 250px;
+        --primary-color: #0070f3;
+        --sidebar-bg: #f7f9fc;
+        --border-color: #eaeaea;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        height: 100vh;
+        overflow: hidden;
+        color: #333;
+      }
+
+      .layout {
+        display: flex;
+        height: 100%;
+      }
+
+      .sidebar {
+        width: var(--sidebar-width);
+        background-color: var(--sidebar-bg);
+        border-right: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+      }
+
+      .sidebar-header {
+        padding: 0 24px 20px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 10px;
+      }
+
+      .sidebar-header h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        color: #111;
+      }
+
+      .nav-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 0 12px;
+      }
+
+      .nav-item {
+        padding: 10px 12px;
+        border: none;
+        background: none;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 6px;
+        color: #555;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .nav-item:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #111;
+      }
+
+      .nav-item.active {
+        background-color: #e6f0ff;
+        color: var(--primary-color);
+      }
+
+      .content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 40px;
+        background-color: #fff;
+      }
+
+      .page-section {
+        display: none;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .page-section.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 16px;
+      }
+
+      .component-preview {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 40px;
+        margin-bottom: 30px;
+        background: #fafafa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+      }
+      
+      .table-container {
+        display: block; /* Override flex for table */
+      }
+
+      .props-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      .props-table th, .props-table td {
+        border: 1px solid var(--border-color);
+        padding: 12px;
+        text-align: left;
+      }
+
+      .props-table th {
+        background-color: #f7f9fc;
+      }
+    </style>
   </head>
   <body>
-    <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>Stencil Docs</h2>
+        </div>
+        <nav class="nav-menu">
+          <button class="nav-item active" data-target="intro">Introduction</button>
+          <button class="nav-item" data-target="legend">Legend Component</button>
+          <button class="nav-item" data-target="table">Table Component</button>
+        </nav>
+      </aside>
 
-  <pv-legend-component
-      legend-title="Chart Legend"
-      items='[{"label": "Series 1", "color": "#ff0000"}, {"label": "Series 2", "color": "#00ff00"}, {"label": "Series 3", "color": "#0000ff"}]'>
-    </pv-legend-component>
+      <!-- Main Content -->
+      <main class="content">
+        
+        <!-- Introduction Section -->
+        <section id="intro" class="page-section active">
+          <h1>Introduction</h1>
+          <p>Welcome to the Stencil component library documentation. Select a component from the sidebar to view its demo and details.</p>
+          
+          <div class="component-preview">
+            <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
+          </div>
+        </section>
 
-    <div class="controls" style="margin-bottom: 20px; text-align: right;">
-      <button id="add-btn" style="
-        padding: 8px 16px;
-        background-color: #0070f3;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      ">Add New User</button>
+        <!-- Legend Section -->
+        <section id="legend" class="page-section">
+          <h1>Legend Component</h1>
+          <p>A simple legend component to display chart series or categories.</p>
+
+          <div class="component-preview">
+            <pv-legend-component
+              legend-title="Chart Legend"
+              items='[{"label": "Series 1", "color": "#ff0000"}, {"label": "Series 2", "color": "#00ff00"}, {"label": "Series 3", "color": "#0000ff"}]'>
+            </pv-legend-component>
+          </div>
+        </section>
+
+        <!-- Table Section -->
+        <section id="table" class="page-section">
+          <h1>Table Component</h1>
+          <p>A powerful data table with sorting, selection, and action handling.</p>
+
+          <div class="controls" style="margin-bottom: 20px; text-align: right;">
+            <button id="add-btn" style="
+              padding: 8px 16px;
+              background-color: #0070f3;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+            ">Add New User</button>
+          </div>
+
+          <div class="component-preview table-container">
+            <pv-table-component id="demo-table" enable-row-selection="true"></pv-table-component>
+          </div>
+        </section>
+
+      </main>
     </div>
 
-    <pv-table-component id="demo-table" enable-row-selection="true"></pv-table-component>
-
     <script>
+      // Navigation Logic
+      const navItems = document.querySelectorAll('.nav-item');
+      const sections = document.querySelectorAll('.page-section');
+
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          // Update Nav
+          navItems.forEach(nav => nav.classList.remove('active'));
+          item.classList.add('active');
+
+          // Update Content
+          const target = item.getAttribute('data-target');
+          sections.forEach(section => {
+            section.classList.remove('active');
+            if(section.id === target) {
+              section.classList.add('active');
+            }
+          });
+        });
+      });
+
+      // Table Logic
       const table = document.getElementById('demo-table');
       const addBtn = document.getElementById('add-btn');
 
