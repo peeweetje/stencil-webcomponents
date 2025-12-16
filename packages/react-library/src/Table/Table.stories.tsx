@@ -45,6 +45,7 @@ const largeData = Array.from({ length: 25 }, (_, i) => ({
   name: `User ${i + 1}`,
   role: i % 3 === 0 ? 'Admin' : i % 2 === 0 ? 'Editor' : 'User',
   status: i % 5 === 0 ? 'Inactive' : 'Active',
+  
 }));
 
 const columnsWithId = [
@@ -73,3 +74,4 @@ export const Empty = {
     data: [],
   },
 };
+

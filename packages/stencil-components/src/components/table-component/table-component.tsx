@@ -38,6 +38,7 @@ export class TableComponent {
   @State() sortColumn: string = '';
   @State() sortDirection: 'asc' | 'desc' = 'asc';
   @State() currentPage: number = 1;
+  @State() filterText: string = '';
 
   private parseProp<T>(prop: T | string): T {
     if (typeof prop === 'string') {
@@ -63,6 +64,12 @@ export class TableComponent {
     this.currentPage = page;
   }
 
+  private handleFilter(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.filterText = input.value;
+    this.currentPage = 1;
+  }
+
   private handleDelete(row: any) {
     this.actionDelete.emit(row);
   }
@@ -70,6 +77,15 @@ export class TableComponent {
   render() {
     const columns = this.parseProp<TableColumn[]>(this.columns);
     let data = this.parseProp<any[]>(this.data);
+
+    // Filtering
+    if (this.filterText) {
+      const lowerFilter = this.filterText.toLowerCase();
+      data = data.filter(row => {
+        const rowValues = Object.values(row).map(val => String(val));
+        return rowValues.join(' ').toLowerCase().includes(lowerFilter);
+      });
+    }
 
     // Sorting
     if (this.sortColumn) {
@@ -90,6 +106,15 @@ export class TableComponent {
     return (
       <Host>
         <div class="table-container">
+          <div class="table-controls">
+            <input
+              type="text"
+              placeholder="Filter..."
+              value={this.filterText}
+              onInput={(e) => this.handleFilter(e)}
+              class="filter-input"
+            />
+          </div>
           <table>
             <thead>
               <tr>

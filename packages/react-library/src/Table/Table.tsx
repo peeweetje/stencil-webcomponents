@@ -35,8 +35,18 @@ const Table: React.FC<TableProps> = ({
     }
   };
 
+  const [filterText, setFilterText] = useState<string>('');
+
   const processedData = useMemo(() => {
     let tempData = [...data];
+
+    if (filterText) {
+      const lowerFilter = filterText.toLowerCase();
+      tempData = tempData.filter(row => {
+        const rowValues = Object.values(row).map(val => String(val));
+        return rowValues.join(' ').toLowerCase().includes(lowerFilter);
+      });
+    }
 
     if (sortColumn) {
       tempData.sort((a, b) => {
@@ -49,7 +59,7 @@ const Table: React.FC<TableProps> = ({
     }
 
     return tempData;
-  }, [data, sortColumn, sortDirection]);
+  }, [data, sortColumn, sortDirection, filterText]);
 
   const totalPages = Math.ceil(processedData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -57,6 +67,18 @@ const Table: React.FC<TableProps> = ({
 
   return (
     <div className={`table-container ${className || ''}`}>
+      <div className="table-controls">
+        <input
+          type="text"
+          placeholder="Filter..."
+          value={filterText}
+          onChange={(e) => {
+            setFilterText(e.target.value);
+            setCurrentPage(1); // Reset to first page on filter change
+          }}
+          className="filter-input"
+        />
+      </div>
       <table>
         <thead>
           <tr>
