@@ -16,13 +16,30 @@
       items='[{"label": "Series 1", "color": "#ff0000"}, {"label": "Series 2", "color": "#00ff00"}, {"label": "Series 3", "color": "#0000ff"}]'>
     </pv-legend-component>
 
-    <hr />
+    <div class="controls" style="margin-bottom: 20px; text-align: right;">
+      <button id="add-btn" style="
+        padding: 8px 16px;
+        background-color: #0070f3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      ">Add New User</button>
+    </div>
 
-    <h3>Table Component</h3>
-    <pv-table-component id="demo-table"></pv-table-component>
+    <pv-table-component id="demo-table" enable-row-selection="true"></pv-table-component>
 
     <script>
       const table = document.getElementById('demo-table');
+      const addBtn = document.getElementById('add-btn');
+
+      let tableData = Array.from({ length: 15 }, (_, i) => ({
+        id: i + 1,
+        name: `User ${i + 1}`,
+        role: ['Admin', 'Editor', 'User', 'Guest'][i % 4],
+        status: ['Active', 'Inactive', 'Pending'][i % 3]
+      }));
+
       table.columns = [
         { key: 'id', label: 'ID' },
         { key: 'name', label: 'Name' },
@@ -30,17 +47,30 @@
         { key: 'status', label: 'Status' }
       ];
       
-      const roles = ['Admin', 'Editor', 'User', 'Guest'];
-      const statuses = ['Active', 'Inactive', 'Pending'];
-      
-      table.data = Array.from({ length: 50 }, (_, i) => ({
-        id: i + 1,
-        name: `User ${i + 1}`,
-        role: roles[i % 4],
-        status: statuses[i % 3]
-      }));
-      
-      table.itemsPerPage = 10;
+      table.data = tableData;
+      table.itemsPerPage = 5;
+
+      // Handle Add
+      addBtn.addEventListener('click', () => {
+        const newId = Math.max(...tableData.map(u => u.id), 0) + 1;
+        const newUser = {
+          id: newId,
+          name: `New User ${newId}`,
+          role: 'Guest',
+          status: 'Pending'
+        };
+        tableData = [newUser, ...tableData];
+        table.data = tableData;
+      });
+
+      // Handle Delete (listening to custom event)
+      table.addEventListener('actionDelete', (e) => {
+        const rowToDelete = e.detail;
+        if(confirm(`Delete user ${rowToDelete.name}?`)) {
+            tableData = tableData.filter(item => item.id !== rowToDelete.id);
+            table.data = tableData;
+        }
+      });
     </script>
   </body>
 </html>
