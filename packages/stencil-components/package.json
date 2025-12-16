@@ -21,6 +21,10 @@
       "import": "./dist/components/legend-component.js",
       "types": "./dist/components/legend-component.d.ts"
     },
+    "./table-component": {
+      "import": "./dist/components/table-component.js",
+      "types": "./dist/components/table-component.d.ts"
+    },
     "./loader": {
       "import": "./loader/index.js",
       "require": "./loader/index.cjs",
