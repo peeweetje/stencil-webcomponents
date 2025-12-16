@@ -44,11 +44,20 @@ export namespace Components {
          */
         "data": any[] | string;
         /**
+          * Enable row deletion
+          * @default false
+         */
+        "enableRowSelection": boolean;
+        /**
           * Items to display per page
           * @default 5
          */
         "itemsPerPage": number;
     }
+}
+export interface PvTableComponentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPvTableComponentElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -63,7 +72,20 @@ declare global {
         prototype: HTMLPvLegendComponentElement;
         new (): HTMLPvLegendComponentElement;
     };
+    interface HTMLPvTableComponentElementEventMap {
+        "rowSort": any;
+        "rowClick": any;
+        "actionDelete": any;
+    }
     interface HTMLPvTableComponentElement extends Components.PvTableComponent, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPvTableComponentElementEventMap>(type: K, listener: (this: HTMLPvTableComponentElement, ev: PvTableComponentCustomEvent<HTMLPvTableComponentElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPvTableComponentElementEventMap>(type: K, listener: (this: HTMLPvTableComponentElement, ev: PvTableComponentCustomEvent<HTMLPvTableComponentElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLPvTableComponentElement: {
         prototype: HTMLPvTableComponentElement;
@@ -110,10 +132,18 @@ declare namespace LocalJSX {
          */
         "data"?: any[] | string;
         /**
+          * Enable row deletion
+          * @default false
+         */
+        "enableRowSelection"?: boolean;
+        /**
           * Items to display per page
           * @default 5
          */
         "itemsPerPage"?: number;
+        "onActionDelete"?: (event: PvTableComponentCustomEvent<any>) => void;
+        "onRowClick"?: (event: PvTableComponentCustomEvent<any>) => void;
+        "onRowSort"?: (event: PvTableComponentCustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;

@@ -1,4 +1,4 @@
-import { Component, Prop, Host, h, State } from '@stencil/core';
+import { Component, Prop, Host, h, State, Event, EventEmitter } from '@stencil/core';
 
 export interface TableColumn {
   key: string;
@@ -26,6 +26,15 @@ export class TableComponent {
    */
   @Prop() itemsPerPage: number = 5;
 
+  /**
+   * Enable row deletion
+   */
+  @Prop() enableRowSelection: boolean = false;
+
+  @Event() rowSort: EventEmitter;
+  @Event() rowClick: EventEmitter;
+  @Event() actionDelete: EventEmitter;
+
   @State() sortColumn: string = '';
   @State() sortDirection: 'asc' | 'desc' = 'asc';
   @State() currentPage: number = 1;
@@ -52,6 +61,10 @@ export class TableComponent {
 
   private handlePageChange(page: number) {
     this.currentPage = page;
+  }
+
+  private handleDelete(row: any) {
+    this.actionDelete.emit(row);
   }
 
   render() {
@@ -94,6 +107,9 @@ export class TableComponent {
                     <span class="sort-icon"></span>
                   </th>
                 ))}
+                {this.enableRowSelection && (
+                  <th class="action-column">Actions</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -103,11 +119,18 @@ export class TableComponent {
                     {columns.map((col, colIndex) => (
                       <td key={`${rowIndex}-${colIndex}`}>{row[col.key]}</td>
                     ))}
+                    {this.enableRowSelection && (
+                      <td class="action-column">
+                        <button class="delete-btn" onClick={() => this.handleDelete(row)}>
+                          🗑️
+                        </button>
+                      </td>
+                    )}
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={columns.length} class="empty-state">No data available</td>
+                  <td colSpan={columns.length + (this.enableRowSelection ? 1 : 0)} class="empty-state">No data available</td>
                 </tr>
               )}
             </tbody>
