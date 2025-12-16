@@ -106,15 +106,17 @@ export class TableComponent {
     return (
       <Host>
         <div class="table-container">
-          <div class="table-controls">
-            <input
-              type="text"
-              placeholder="Filter..."
-              value={this.filterText}
-              onInput={(e) => this.handleFilter(e)}
-              class="filter-input"
-            />
-          </div>
+          {this.parseProp<any[]>(this.data).length > 0 && (
+            <div class="table-controls">
+              <input
+                type="text"
+                placeholder="Filter..."
+                value={this.filterText}
+                onInput={(e) => this.handleFilter(e)}
+                class="filter-input"
+              />
+            </div>
+          )}
           <table>
             <thead>
               <tr>

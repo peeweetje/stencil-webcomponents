@@ -67,18 +67,20 @@ const Table: React.FC<TableProps> = ({
 
   return (
     <div className={`table-container ${className || ''}`}>
-      <div className="table-controls">
-        <input
-          type="text"
-          placeholder="Filter..."
-          value={filterText}
-          onChange={(e) => {
-            setFilterText(e.target.value);
-            setCurrentPage(1); // Reset to first page on filter change
-          }}
-          className="filter-input"
-        />
-      </div>
+      {data.length > 0 && (
+        <div className="table-controls">
+          <input
+            type="text"
+            placeholder="Filter..."
+            value={filterText}
+            onChange={(e) => {
+              setFilterText(e.target.value);
+              setCurrentPage(1); // Reset to first page on filter change
+            }}
+            className="filter-input"
+          />
+        </div>
+      )}
       <table>
         <thead>
           <tr>
