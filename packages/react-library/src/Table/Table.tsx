@@ -11,13 +11,16 @@ export interface TableProps {
   columns?: TableColumn[];
   className?: string;
   itemsPerPage?: number;
+  onRowDelete?: (row: any) => void;
+  onRowAdd?: () => void;
 }
 
 const Table: React.FC<TableProps> = ({ 
   data = [], 
   columns = [], 
   className,
-  itemsPerPage = 5 
+  itemsPerPage = 5,
+  onRowDelete
 }) => {
   const [sortColumn, setSortColumn] = useState<string>('');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
@@ -70,6 +73,7 @@ const Table: React.FC<TableProps> = ({
                 <span className="sort-icon"></span>
               </th>
             ))}
+            {onRowDelete && <th className="action-column">Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -79,11 +83,24 @@ const Table: React.FC<TableProps> = ({
                 {columns.map((col, colIndex) => (
                   <td key={`${rowIndex}-${colIndex}`}>{row[col.key]}</td>
                 ))}
+                {onRowDelete && (
+                  <td className="action-column">
+                    <button 
+                      className="delete-btn" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onRowDelete(row);
+                      }}
+                    >
+                      🗑️
+                    </button>
+                  </td>
+                )}
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={columns.length} className="empty-state">No data available</td>
+              <td colSpan={columns.length + (onRowDelete ? 1 : 0)} className="empty-state">No data available</td>
             </tr>
           )}
         </tbody>

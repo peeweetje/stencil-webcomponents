@@ -49,6 +49,25 @@
             }
         }
 
+        .action-column {
+            width: 60px;
+            text-align: center;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: #ffebee;
+            }
+        }
+
         tr:last-child td {
             border-bottom: none;
         }
