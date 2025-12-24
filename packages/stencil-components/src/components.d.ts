@@ -5,8 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { AccordionItem } from "./components/accordion-component/accordion-component";
 import { LegendItem } from "./components/legend-component/legend-component";
 import { TableColumn } from "./components/table-component/table-component";
+export { AccordionItem } from "./components/accordion-component/accordion-component";
 export { LegendItem } from "./components/legend-component/legend-component";
 export { TableColumn } from "./components/table-component/table-component";
 export namespace Components {
@@ -23,6 +25,17 @@ export namespace Components {
           * The middle name
          */
         "middle": string;
+    }
+    interface PvAccordionComponent {
+        /**
+          * Allow multiple sections to be open at the same time
+          * @default false
+         */
+        "allowMultiple": boolean;
+        /**
+          * The accordion items
+         */
+        "items": AccordionItem[] | string;
     }
     interface PvLegendComponent {
         /**
@@ -55,6 +68,10 @@ export namespace Components {
         "itemsPerPage": number;
     }
 }
+export interface PvAccordionComponentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPvAccordionComponentElement;
+}
 export interface PvTableComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPvTableComponentElement;
@@ -65,6 +82,23 @@ declare global {
     var HTMLMyComponentElement: {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
+    };
+    interface HTMLPvAccordionComponentElementEventMap {
+        "accordionChange": any;
+    }
+    interface HTMLPvAccordionComponentElement extends Components.PvAccordionComponent, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPvAccordionComponentElementEventMap>(type: K, listener: (this: HTMLPvAccordionComponentElement, ev: PvAccordionComponentCustomEvent<HTMLPvAccordionComponentElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPvAccordionComponentElementEventMap>(type: K, listener: (this: HTMLPvAccordionComponentElement, ev: PvAccordionComponentCustomEvent<HTMLPvAccordionComponentElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPvAccordionComponentElement: {
+        prototype: HTMLPvAccordionComponentElement;
+        new (): HTMLPvAccordionComponentElement;
     };
     interface HTMLPvLegendComponentElement extends Components.PvLegendComponent, HTMLStencilElement {
     }
@@ -93,6 +127,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "pv-accordion-component": HTMLPvAccordionComponentElement;
         "pv-legend-component": HTMLPvLegendComponentElement;
         "pv-table-component": HTMLPvTableComponentElement;
     }
@@ -111,6 +146,18 @@ declare namespace LocalJSX {
           * The middle name
          */
         "middle"?: string;
+    }
+    interface PvAccordionComponent {
+        /**
+          * Allow multiple sections to be open at the same time
+          * @default false
+         */
+        "allowMultiple"?: boolean;
+        /**
+          * The accordion items
+         */
+        "items"?: AccordionItem[] | string;
+        "onAccordionChange"?: (event: PvAccordionComponentCustomEvent<any>) => void;
     }
     interface PvLegendComponent {
         /**
@@ -147,6 +194,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "pv-accordion-component": PvAccordionComponent;
         "pv-legend-component": PvLegendComponent;
         "pv-table-component": PvTableComponent;
     }
@@ -156,6 +204,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "pv-accordion-component": LocalJSX.PvAccordionComponent & JSXBase.HTMLAttributes<HTMLPvAccordionComponentElement>;
             "pv-legend-component": LocalJSX.PvLegendComponent & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
             "pv-table-component": LocalJSX.PvTableComponent & JSXBase.HTMLAttributes<HTMLPvTableComponentElement>;
         }
