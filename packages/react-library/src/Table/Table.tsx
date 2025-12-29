@@ -19,13 +19,13 @@ export interface TableProps {
   onRowAdd?: () => void;
 }
 
-const Table: React.FC<TableProps> = ({
+const Table = ({
   data = [],
   columns = [],
   className,
   itemsPerPage = 5,
   onRowDelete
-}) => {
+}: TableProps) => {
   const [sortColumn, setSortColumn] = useState<string>('');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState<number>(1);

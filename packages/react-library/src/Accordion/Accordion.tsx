@@ -12,11 +12,11 @@ export interface AccordionProps {
     className?: string;
 }
 
-const Accordion: React.FC<AccordionProps> = ({
+const Accordion = ({
     items = [],
     allowMultiple = false,
     className
-}) => {
+}: AccordionProps) => {
     const [openSections, setOpenSections] = useState<number[]>([]);
 
     const parsedItems: AccordionItem[] = React.useMemo(() => {

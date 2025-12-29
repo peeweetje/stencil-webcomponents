@@ -7,11 +7,11 @@ interface TableBodyProps {
     onRowDelete?: (row: any) => void;
 }
 
-const TableBody: React.FC<TableBodyProps> = ({
+const TableBody = ({
     data,
     columns,
     onRowDelete
-}) => {
+}: TableBodyProps) => {
     return (
         <tbody>
             {data.length > 0 ? (

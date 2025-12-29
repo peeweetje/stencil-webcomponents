@@ -12,7 +12,7 @@ export interface LegendProps {
   className?: string;
 }
 
-const Legend: React.FC<LegendProps> = ({ items, legendTitle, className }) => {
+const Legend = ({ items, legendTitle, className }: LegendProps) => {
   return (
     <div className={`legend ${className || ''}`}>
       {legendTitle && <h4 className="legend-title">{legendTitle}</h4>}

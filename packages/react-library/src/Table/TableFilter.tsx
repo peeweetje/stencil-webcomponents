@@ -5,10 +5,10 @@ interface TableFilterProps {
     onFilterChange: (text: string) => void;
 }
 
-const TableFilter: React.FC<TableFilterProps> = ({
+const TableFilter = ({
     filterText,
     onFilterChange
-}) => {
+}: TableFilterProps) => {
     return (
         <div className="table-controls">
             <input

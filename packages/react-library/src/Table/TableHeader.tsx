@@ -9,13 +9,13 @@ interface TableHeaderProps {
     showActionColumn: boolean;
 }
 
-const TableHeader: React.FC<TableHeaderProps> = ({
+const TableHeader = ({
     columns,
     sortColumn,
     sortDirection,
     onSort,
     showActionColumn
-}) => {
+}: TableHeaderProps) => {
     return (
         <thead>
             <tr>

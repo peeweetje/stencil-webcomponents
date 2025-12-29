@@ -6,11 +6,11 @@ interface TablePaginationProps {
     onPageChange: (newPage: number) => void;
 }
 
-const TablePagination: React.FC<TablePaginationProps> = ({
+const TablePagination = ({
     currentPage,
     totalPages,
     onPageChange
-}) => {
+}: TablePaginationProps) => {
     if (totalPages <= 1) return null;
 
     return (
