@@ -1,5 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import './Table.scss';
+import TableHeader from './TableHeader';
+import TableBody from './TableBody';
+import TablePagination from './TablePagination';
+import TableFilter from './TableFilter';
 
 export interface TableColumn {
   key: string;
@@ -15,9 +19,9 @@ export interface TableProps {
   onRowAdd?: () => void;
 }
 
-const Table: React.FC<TableProps> = ({ 
-  data = [], 
-  columns = [], 
+const Table: React.FC<TableProps> = ({
+  data = [],
+  columns = [],
   className,
   itemsPerPage = 5,
   onRowDelete
@@ -25,6 +29,7 @@ const Table: React.FC<TableProps> = ({
   const [sortColumn, setSortColumn] = useState<string>('');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [filterText, setFilterText] = useState<string>('');
 
   const handleSort = (columnKey: string) => {
     if (sortColumn === columnKey) {
@@ -35,7 +40,10 @@ const Table: React.FC<TableProps> = ({
     }
   };
 
-  const [filterText, setFilterText] = useState<string>('');
+  const handleFilterChange = (text: string) => {
+    setFilterText(text);
+    setCurrentPage(1); // Reset to first page on filter change
+  };
 
   const processedData = useMemo(() => {
     let tempData = [...data];
@@ -68,87 +76,32 @@ const Table: React.FC<TableProps> = ({
   return (
     <div className={`table-container ${className || ''}`}>
       {data.length > 0 && (
-        <div className="table-controls">
-          <input
-            type="text"
-            placeholder="Filter..."
-            value={filterText}
-            onChange={(e) => {
-              setFilterText(e.target.value);
-              setCurrentPage(1); // Reset to first page on filter change
-            }}
-            className="filter-input"
-          />
-        </div>
+        <TableFilter
+          filterText={filterText}
+          onFilterChange={handleFilterChange}
+        />
       )}
+
       <table>
-        <thead>
-          <tr>
-            {columns.map((col) => (
-              <th 
-                key={col.key}
-                onClick={() => handleSort(col.key)}
-                className={`
-                  sortable 
-                  ${sortColumn === col.key ? (sortDirection === 'asc' ? 'sorted-asc' : 'sorted-desc') : ''}
-                `}
-              >
-                {col.label}
-                <span className="sort-icon"></span>
-              </th>
-            ))}
-            {onRowDelete && <th className="action-column">Actions</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.length > 0 ? (
-            paginatedData.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {columns.map((col, colIndex) => (
-                  <td key={`${rowIndex}-${colIndex}`}>{row[col.key]}</td>
-                ))}
-                {onRowDelete && (
-                  <td className="action-column">
-                    <button 
-                      className="delete-btn" 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onRowDelete(row);
-                      }}
-                    >
-                      🗑️
-                    </button>
-                  </td>
-                )}
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={columns.length + (onRowDelete ? 1 : 0)} className="empty-state">No data available</td>
-            </tr>
-          )}
-        </tbody>
+        <TableHeader
+          columns={columns}
+          sortColumn={sortColumn}
+          sortDirection={sortDirection}
+          onSort={handleSort}
+          showActionColumn={!!onRowDelete}
+        />
+        <TableBody
+          data={paginatedData}
+          columns={columns}
+          onRowDelete={onRowDelete}
+        />
       </table>
 
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(prev => prev - 1)}
-          >
-            Previous
-          </button>
-          <span className="page-info">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(prev => prev + 1)}
-          >
-            Next
-          </button>
-        </div>
-      )}
+      <TablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
