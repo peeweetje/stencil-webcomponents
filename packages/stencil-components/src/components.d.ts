@@ -7,10 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionItem } from "./components/accordion-component/accordion-component";
 import { LegendItem } from "./components/legend-component/legend-component";
-import { TableColumn } from "./components/table-component/table-component";
+import { TableColumn } from "./components/table/table-component";
 export { AccordionItem } from "./components/accordion-component/accordion-component";
 export { LegendItem } from "./components/legend-component/legend-component";
-export { TableColumn } from "./components/table-component/table-component";
+export { TableColumn } from "./components/table/table-component";
 export namespace Components {
     interface MyComponent {
         /**

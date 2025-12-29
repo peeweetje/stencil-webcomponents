@@ -1,4 +1,8 @@
 import { Component, Prop, Host, h, State, Event, EventEmitter } from '@stencil/core';
+import { TableHeader } from './table-components/TableHeader';
+import { TableBody } from './table-components/TableBody';
+import { TablePagination } from './table-components/TablePagination';
+import { TableFilter } from './table-components/TableFilter';
 
 export interface TableColumn {
   key: string;
@@ -107,81 +111,34 @@ export class TableComponent {
       <Host>
         <div class="table-container">
           {this.parseProp<any[]>(this.data).length > 0 && (
-            <div class="table-controls">
-              <input
-                type="text"
-                placeholder="Filter..."
-                value={this.filterText}
-                onInput={(e) => this.handleFilter(e)}
-                class="filter-input"
-              />
-            </div>
+            <TableFilter
+              filterText={this.filterText}
+              onFilterInput={(e) => this.handleFilter(e)}
+            />
           )}
+
           <table>
-            <thead>
-              <tr>
-                {columns.map(col => (
-                  <th
-                    key={col.key}
-                    onClick={() => this.handleSort(col.key)}
-                    class={{
-                      'sortable': true,
-                      'sorted-asc': this.sortColumn === col.key && this.sortDirection === 'asc',
-                      'sorted-desc': this.sortColumn === col.key && this.sortDirection === 'desc'
-                    }}
-                  >
-                    {col.label}
-                    <span class="sort-icon"></span>
-                  </th>
-                ))}
-                {this.enableRowSelection && (
-                  <th class="action-column">Actions</th>
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedData.length > 0 ? (
-                paginatedData.map((row, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {columns.map((col, colIndex) => (
-                      <td key={`${rowIndex}-${colIndex}`}>{row[col.key]}</td>
-                    ))}
-                    {this.enableRowSelection && (
-                      <td class="action-column">
-                        <button class="delete-btn" onClick={() => this.handleDelete(row)}>
-                          🗑️
-                        </button>
-                      </td>
-                    )}
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={columns.length + (this.enableRowSelection ? 1 : 0)} class="empty-state">No data available</td>
-                </tr>
-              )}
-            </tbody>
+            <TableHeader
+              columns={columns}
+              sortColumn={this.sortColumn}
+              sortDirection={this.sortDirection}
+              onSort={(key) => this.handleSort(key)}
+              showActionColumn={this.enableRowSelection}
+            />
+
+            <TableBody
+              data={paginatedData}
+              columns={columns}
+              enableRowSelection={this.enableRowSelection}
+              onDelete={this.enableRowSelection ? (row) => this.handleDelete(row) : undefined}
+            />
           </table>
 
-          {totalPages > 1 && (
-            <div class="pagination">
-              <button
-                disabled={this.currentPage === 1}
-                onClick={() => this.handlePageChange(this.currentPage - 1)}
-              >
-                Previous
-              </button>
-              <span class="page-info">
-                Page {this.currentPage} of {totalPages}
-              </span>
-              <button
-                disabled={this.currentPage === totalPages}
-                onClick={() => this.handlePageChange(this.currentPage + 1)}
-              >
-                Next
-              </button>
-            </div>
-          )}
+          <TablePagination
+            currentPage={this.currentPage}
+            totalPages={totalPages}
+            onPageChange={(page) => this.handlePageChange(page)}
+          />
         </div>
       </Host>
     );
