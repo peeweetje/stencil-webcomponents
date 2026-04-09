@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accordion Component</title>
+  <script type="module" src="/build/stencil-components.esm.js"></script>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Stencil Docs</h2>
+      </div>
+      <nav class="nav-menu">
+        <a class="nav-item" href="index.html">Introduction</a>
+        <a class="nav-item" href="button.html">Button Component</a>
+        <a class="nav-item" href="legend.html">Legend Component</a>
+        <a class="nav-item" href="table.html">Table Component</a>
+        <a class="nav-item active" href="accordion.html">Accordion Component</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>Accordion Component</h1>
+      <p>A collapsible content area to organize information efficiently.</p>
+
+      <div class="component-preview">
+        <pv-accordion-component id="demo-accordion" allow-multiple="false" items='[
+              {"header": "What is Stencil?", "content": "Stencil is a toolchain for building reusable, scalable Design Systems. Generate small, blazing fast, and 100% standards based Web Components that run in every browser."},
+              {"header": "Why use Web Components?", "content": "Web Components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps."},
+              {"header": "Is it fast?", "content": "Yes! Stencil is designed to be blazing fast, using the best features of modern browsers while maintaining 100% compatibility."}
+            ]'></pv-accordion-component>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <label style="display: flex; align-items: center; gap: 8px;">
+          <input type="checkbox" id="allow-multiple-check"> Allow Multiple Open
+        </label>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    const accordion = document.getElementById('demo-accordion');
+    const allowMultipleCheck = document.getElementById('allow-multiple-check');
+
+    allowMultipleCheck.addEventListener('change', (e) => {
+      accordion.allowMultiple = e.target.checked;
+    });
+  </script>
+
+</body>
+</html>
