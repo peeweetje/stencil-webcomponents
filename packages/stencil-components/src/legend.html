@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legend Component</title>
+  <script type="module" src="/build/stencil-components.esm.js"></script>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Stencil Docs</h2>
+      </div>
+      <nav class="nav-menu">
+        <a class="nav-item" href="index.html">Introduction</a>
+        <a class="nav-item" href="button.html">Button Component</a>
+        <a class="nav-item active" href="legend.html">Legend Component</a>
+        <a class="nav-item" href="table.html">Table Component</a>
+        <a class="nav-item" href="accordion.html">Accordion Component</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>Legend Component</h1>
+      <p>A simple legend component to display chart series or categories.</p>
+
+      <div class="component-preview">
+        <pv-legend-component legend-title="Chart Legend"
+          items='[{"label": "Series 1", "color": "#ff0000"}, {"label": "Series 2", "color": "#00ff00"}, {"label": "Series 3", "color": "#0000ff"}]'>
+        </pv-legend-component>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>
