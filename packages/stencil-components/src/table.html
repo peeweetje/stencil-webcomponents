@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Table Component</title>
+  <script type="module" src="/build/stencil-components.esm.js"></script>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Stencil Docs</h2>
+      </div>
+      <nav class="nav-menu">
+        <a class="nav-item" href="index.html">Introduction</a>
+        <a class="nav-item" href="button.html">Button Component</a>
+        <a class="nav-item" href="legend.html">Legend Component</a>
+        <a class="nav-item active" href="table.html">Table Component</a>
+        <a class="nav-item" href="accordion.html">Accordion Component</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>Table Component</h1>
+      <p>A powerful data table with sorting, selection, and action handling.</p>
+
+      <div class="controls" style="margin-bottom: 20px; text-align: right;">
+        <button id="add-btn" style="
+            padding: 8px 16px;
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+          ">Add New User</button>
+      </div>
+
+      <div class="component-preview table-container">
+        <pv-table-component id="demo-table" enable-row-selection="true"></pv-table-component>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    const table = document.getElementById('demo-table');
+    const addBtn = document.getElementById('add-btn');
+
+    let tableData = Array.from({ length: 15 }, (_, i) => ({
+      id: i + 1,
+      name: `User ${i + 1}`,
+      role: ['Admin', 'Editor', 'User', 'Guest'][i % 4],
+      status: ['Active', 'Inactive', 'Pending'][i % 3]
+    }));
+
+    table.columns = [
+      { key: 'id', label: 'ID' },
+      { key: 'name', label: 'Name' },
+      { key: 'role', label: 'Role' },
+      { key: 'status', label: 'Status' }
+    ];
+
+    table.data = tableData;
+    table.itemsPerPage = 5;
+
+    // Handle Add
+    addBtn.addEventListener('click', () => {
+      const newId = Math.max(...tableData.map(u => u.id), 0) + 1;
+      const newUser = {
+        id: newId,
+        name: `New User ${newId}`,
+        role: 'Guest',
+        status: 'Pending'
+      };
+      tableData = [newUser, ...tableData];
+      table.data = tableData;
+    });
+
+    // Handle Delete (listening to custom event)
+    table.addEventListener('actionDelete', (e) => {
+      const rowToDelete = e.detail;
+      if (confirm(`Delete user ${rowToDelete.name}?`)) {
+        tableData = tableData.filter(item => item.id !== rowToDelete.id);
+        table.data = tableData;
+      }
+    });
+  </script>
+
+</body>
+</html>
