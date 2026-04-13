@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Button Component</title>
+  <script type="module" src="/build/stencil-components.esm.js"></script>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Stencil Docs</h2>
+      </div>
+      <nav class="nav-menu">
+        <a class="nav-item" href="index.html">Introduction</a>
+        <a class="nav-item active" href="button.html">Button Component</a>
+        <a class="nav-item" href="legend.html">Legend Component</a>
+        <a class="nav-item" href="table.html">Table Component</a>
+        <a class="nav-item" href="accordion.html">Accordion Component</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>Button Component</h1>
+      <p>Interactive button component with variants, sizes and states.</p>
+
+      <div class="component-preview" style="flex-direction: column; gap: 20px;">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+          <pv-button-component variant="primary">Primary Button</pv-button-component>
+          <pv-button-component variant="secondary">Secondary Button</pv-button-component>
+          <pv-button-component variant="outline">Outline Button</pv-button-component>
+          <pv-button-component variant="danger">Danger Button</pv-button-component>
+        </div>
+          
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: center;">
+          <pv-button-component size="small">Small Button</pv-button-component>
+          <pv-button-component size="medium">Medium Button</pv-button-component>
+          <pv-button-component size="large">Large Button</pv-button-component>
+        </div>
+          
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+          <pv-button-component disabled>Disabled Button</pv-button-component>
+          <pv-button-component full-width>Full Width Button</pv-button-component>
+        </div>
+      </div>
+
+      <table class="props-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>variant</code></td>
+            <td>primary | secondary | outline | danger</td>
+            <td>primary</td>
+            <td>The button variant style</td>
+          </tr>
+          <tr>
+            <td><code>size</code></td>
+            <td>small | medium | large</td>
+            <td>medium</td>
+            <td>The button size</td>
+          </tr>
+          <tr>
+            <td><code>disabled</code></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>If true, the button is disabled</td>
+          </tr>
+          <tr>
+            <td><code>full-width</code></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>If true, the button will take full width of container</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </main>
+  </div>
+</body>
+</html>
