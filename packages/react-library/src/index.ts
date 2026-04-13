@@ -5,3 +5,5 @@ export * from './Table'; // Export sub-components
 export type { TableProps, TableColumn } from './Table/Table';
 export { default as Accordion } from './Accordion/Accordion';
 export type { AccordionProps, AccordionItem } from './Accordion/Accordion';
+export { Button } from './Button/Button';
+export type { ButtonProps } from './Button/Button';
