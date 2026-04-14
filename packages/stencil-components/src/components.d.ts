@@ -37,6 +37,28 @@ export namespace Components {
          */
         "items": AccordionItem[] | string;
     }
+    interface PvButtonComponent {
+        /**
+          * If true, the button is disabled
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * If true, the button will take full width of container
+          * @default false
+         */
+        "fullWidth": boolean;
+        /**
+          * The button size
+          * @default 'medium'
+         */
+        "size": 'small' | 'medium' | 'large';
+        /**
+          * The button variant style
+          * @default 'primary'
+         */
+        "variant": 'primary' | 'secondary' | 'outline' | 'danger';
+    }
     interface PvLegendComponent {
         /**
           * The legend items
@@ -72,6 +94,10 @@ export interface PvAccordionComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPvAccordionComponentElement;
 }
+export interface PvButtonComponentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPvButtonComponentElement;
+}
 export interface PvTableComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPvTableComponentElement;
@@ -99,6 +125,23 @@ declare global {
     var HTMLPvAccordionComponentElement: {
         prototype: HTMLPvAccordionComponentElement;
         new (): HTMLPvAccordionComponentElement;
+    };
+    interface HTMLPvButtonComponentElementEventMap {
+        "buttonClick": MouseEvent;
+    }
+    interface HTMLPvButtonComponentElement extends Components.PvButtonComponent, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPvButtonComponentElementEventMap>(type: K, listener: (this: HTMLPvButtonComponentElement, ev: PvButtonComponentCustomEvent<HTMLPvButtonComponentElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPvButtonComponentElementEventMap>(type: K, listener: (this: HTMLPvButtonComponentElement, ev: PvButtonComponentCustomEvent<HTMLPvButtonComponentElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPvButtonComponentElement: {
+        prototype: HTMLPvButtonComponentElement;
+        new (): HTMLPvButtonComponentElement;
     };
     interface HTMLPvLegendComponentElement extends Components.PvLegendComponent, HTMLStencilElement {
     }
@@ -128,6 +171,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
         "pv-accordion-component": HTMLPvAccordionComponentElement;
+        "pv-button-component": HTMLPvButtonComponentElement;
         "pv-legend-component": HTMLPvLegendComponentElement;
         "pv-table-component": HTMLPvTableComponentElement;
     }
@@ -158,6 +202,32 @@ declare namespace LocalJSX {
          */
         "items"?: AccordionItem[] | string;
         "onAccordionChange"?: (event: PvAccordionComponentCustomEvent<any>) => void;
+    }
+    interface PvButtonComponent {
+        /**
+          * If true, the button is disabled
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * If true, the button will take full width of container
+          * @default false
+         */
+        "fullWidth"?: boolean;
+        /**
+          * Emitted when the button is clicked
+         */
+        "onButtonClick"?: (event: PvButtonComponentCustomEvent<MouseEvent>) => void;
+        /**
+          * The button size
+          * @default 'medium'
+         */
+        "size"?: 'small' | 'medium' | 'large';
+        /**
+          * The button variant style
+          * @default 'primary'
+         */
+        "variant"?: 'primary' | 'secondary' | 'outline' | 'danger';
     }
     interface PvLegendComponent {
         /**
@@ -195,6 +265,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "my-component": MyComponent;
         "pv-accordion-component": PvAccordionComponent;
+        "pv-button-component": PvButtonComponent;
         "pv-legend-component": PvLegendComponent;
         "pv-table-component": PvTableComponent;
     }
@@ -205,6 +276,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "pv-accordion-component": LocalJSX.PvAccordionComponent & JSXBase.HTMLAttributes<HTMLPvAccordionComponentElement>;
+            "pv-button-component": LocalJSX.PvButtonComponent & JSXBase.HTMLAttributes<HTMLPvButtonComponentElement>;
             "pv-legend-component": LocalJSX.PvLegendComponent & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
             "pv-table-component": LocalJSX.PvTableComponent & JSXBase.HTMLAttributes<HTMLPvTableComponentElement>;
         }
