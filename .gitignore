@@ -12,8 +12,11 @@
 !.yarn/versions
 
 
-# production 
+# production
 /build
+# package builds
+/packages/react-library/dist
+/packages/stencil-components/dist
 
 # misc
 .DS_Store

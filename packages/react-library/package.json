@@ -23,6 +23,7 @@
     "@storybook/addon-a11y": "10.1.9",
     "@storybook/addon-docs": "^10.1.9",
     "@storybook/addon-links": "^10.1.9",
+    "@storybook/react": "10.1.9",
     "@storybook/react-vite": "^10.1.9",
     "@types/react": "^18.0.0",
     "sass-embedded": "^1.93.3",
