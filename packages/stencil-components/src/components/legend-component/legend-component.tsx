@@ -14,7 +14,8 @@ export class LegendComponent {
   /**
    * The legend items
    */
-  @Prop() items: LegendItem[] | string;
+  @Prop()
+  items!: LegendItem[] | string;
 
   /**
    * The legend title
