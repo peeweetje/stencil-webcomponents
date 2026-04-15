@@ -39,8 +39,8 @@ export const Badge: React.FC<BadgeProps> = ({
     'badge',
     `badge-${variant}`,
     `badge-${size}`,
-    rounded ? 'badge-rounded' : '',
-    filled ? 'badge-filled' : 'badge-outline',
+rounded ? 'badge-rounded' : '',
+    filled ? '' : 'badge-outline',
   ].filter(Boolean).join(' ');
 
   return (
