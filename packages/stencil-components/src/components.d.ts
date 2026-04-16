@@ -37,6 +37,28 @@ export namespace Components {
          */
         "items": AccordionItem[] | string;
     }
+    interface PvBadgeComponent {
+        /**
+          * If true, the badge will be filled
+          * @default true
+         */
+        "filled": boolean;
+        /**
+          * If true, the badge will be rounded
+          * @default false
+         */
+        "rounded": boolean;
+        /**
+          * The badge size
+          * @default 'medium'
+         */
+        "size": 'small' | 'medium' | 'large';
+        /**
+          * The badge variant style
+          * @default 'primary'
+         */
+        "variant": 'primary' | 'secondary' | 'outline' | 'danger' | 'success' | 'warning';
+    }
     interface PvButtonComponent {
         /**
           * If true, the button is disabled
@@ -126,6 +148,12 @@ declare global {
         prototype: HTMLPvAccordionComponentElement;
         new (): HTMLPvAccordionComponentElement;
     };
+    interface HTMLPvBadgeComponentElement extends Components.PvBadgeComponent, HTMLStencilElement {
+    }
+    var HTMLPvBadgeComponentElement: {
+        prototype: HTMLPvBadgeComponentElement;
+        new (): HTMLPvBadgeComponentElement;
+    };
     interface HTMLPvButtonComponentElementEventMap {
         "buttonClick": MouseEvent;
     }
@@ -171,6 +199,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
         "pv-accordion-component": HTMLPvAccordionComponentElement;
+        "pv-badge-component": HTMLPvBadgeComponentElement;
         "pv-button-component": HTMLPvButtonComponentElement;
         "pv-legend-component": HTMLPvLegendComponentElement;
         "pv-table-component": HTMLPvTableComponentElement;
@@ -203,6 +232,28 @@ declare namespace LocalJSX {
         "items"?: AccordionItem[] | string;
         "onAccordionChange"?: (event: PvAccordionComponentCustomEvent<any>) => void;
     }
+    interface PvBadgeComponent {
+        /**
+          * If true, the badge will be filled
+          * @default true
+         */
+        "filled"?: boolean;
+        /**
+          * If true, the badge will be rounded
+          * @default false
+         */
+        "rounded"?: boolean;
+        /**
+          * The badge size
+          * @default 'medium'
+         */
+        "size"?: 'small' | 'medium' | 'large';
+        /**
+          * The badge variant style
+          * @default 'primary'
+         */
+        "variant"?: 'primary' | 'secondary' | 'outline' | 'danger' | 'success' | 'warning';
+    }
     interface PvButtonComponent {
         /**
           * If true, the button is disabled
@@ -233,7 +284,7 @@ declare namespace LocalJSX {
         /**
           * The legend items
          */
-        "items"?: LegendItem[] | string;
+        "items": LegendItem[] | string;
         /**
           * The legend title
          */
@@ -265,6 +316,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "my-component": MyComponent;
         "pv-accordion-component": PvAccordionComponent;
+        "pv-badge-component": PvBadgeComponent;
         "pv-button-component": PvButtonComponent;
         "pv-legend-component": PvLegendComponent;
         "pv-table-component": PvTableComponent;
@@ -276,6 +328,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "pv-accordion-component": LocalJSX.PvAccordionComponent & JSXBase.HTMLAttributes<HTMLPvAccordionComponentElement>;
+            "pv-badge-component": LocalJSX.PvBadgeComponent & JSXBase.HTMLAttributes<HTMLPvBadgeComponentElement>;
             "pv-button-component": LocalJSX.PvButtonComponent & JSXBase.HTMLAttributes<HTMLPvButtonComponentElement>;
             "pv-legend-component": LocalJSX.PvLegendComponent & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
             "pv-table-component": LocalJSX.PvTableComponent & JSXBase.HTMLAttributes<HTMLPvTableComponentElement>;
