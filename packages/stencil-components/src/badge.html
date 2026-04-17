@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Badge Component</title>
+  <script type="module" src="/build/stencil-components.esm.js"></script>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Stencil Docs</h2>
+      </div>
+      <nav class="nav-menu">
+        <a class="nav-item" href="index.html">Introduction</a>
+        <a class="nav-item" href="button.html">Button Component</a>
+        <a class="nav-item" href="legend.html">Legend Component</a>
+        <a class="nav-item" href="table.html">Table Component</a>
+        <a class="nav-item" href="accordion.html">Accordion Component</a>
+        <a class="nav-item active" href="badge.html">Badge Component</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>Badge Component</h1>
+      <p>Badge component with variants, sizes, and shapes for labeling and highlighting content.</p>
+
+      <div class="component-preview" style="flex-direction: column; gap: 20px;">
+        <div>
+          <h3 style="text-align: center; margin-top: 0;">Badge Variants</h3>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+            <pv-badge-component variant="primary">Primary Badge</pv-badge-component>
+            <pv-badge-component variant="secondary">Secondary Badge</pv-badge-component>
+            <pv-badge-component variant="outline">Outline Badge</pv-badge-component>
+            <pv-badge-component variant="danger">Danger Badge</pv-badge-component>
+            <pv-badge-component variant="success">Success Badge</pv-badge-component>
+            <pv-badge-component variant="warning">Warning Badge</pv-badge-component>
+          </div>
+        </div>
+          
+        <div>
+          <h3 style="text-align: center; margin-top: 0;">Badge Sizes</h3>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: center;">
+            <pv-badge-component size="small">Small</pv-badge-component>
+            <pv-badge-component size="medium">Medium</pv-badge-component>
+            <pv-badge-component size="large">Large</pv-badge-component>
+          </div>
+        </div>
+          
+        <div>
+          <h3 style="text-align: center; margin-top: 0;">Rounded Badges</h3>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+            <pv-badge-component rounded>New</pv-badge-component>
+            <pv-badge-component rounded variant="danger">Alert</pv-badge-component>
+            <pv-badge-component rounded variant="success">Complete</pv-badge-component>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="text-align: center; margin-top: 0;">Filled vs Outline</h3>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+            <pv-badge-component filled>Filled Badge</pv-badge-component>
+            <pv-badge-component variant="outline">Outline Badge</pv-badge-component>
+            <pv-badge-component filled variant="danger">Error State</pv-badge-component>
+            <pv-badge-component variant="danger">Warning State</pv-badge-component>
+          </div>
+        </div>
+      </div>
+
+      <table class="props-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>variant</code></td>
+            <td>primary | secondary | outline | danger | success | warning</td>
+            <td>primary</td>
+            <td>The badge variant style</td>
+          </tr>
+          <tr>
+            <td><code>size</code></td>
+            <td>small | medium | large</td>
+            <td>medium</td>
+            <td>The badge size</td>
+          </tr>
+          <tr>
+            <td><code>rounded</code></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>If true, the badge will have rounded corners</td>
+          </tr>
+          <tr>
+            <td><code>filled</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>If true, the badge will be filled</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </main>
+  </div>
+</body>
+</html>
