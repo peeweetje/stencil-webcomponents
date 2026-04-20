@@ -206,6 +206,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    type OneOf<K extends string, PropT, AttrT = PropT> = { [P in K]: PropT } & { [P in `attr:${K}` | `prop:${K}`]?: never } | { [P in `attr:${K}`]: AttrT } & { [P in K | `prop:${K}`]?: never } | { [P in `prop:${K}`]: PropT } & { [P in K | `attr:${K}`]?: never };
+
     interface MyComponent {
         /**
           * The first name
@@ -313,25 +315,58 @@ declare namespace LocalJSX {
         "onRowClick"?: (event: PvTableComponentCustomEvent<any>) => void;
         "onRowSort"?: (event: PvTableComponentCustomEvent<any>) => void;
     }
+
+    interface MyComponentAttributes {
+        "first": string;
+        "middle": string;
+        "last": string;
+    }
+    interface PvAccordionComponentAttributes {
+        "items": AccordionItem[] | string;
+        "allowMultiple": boolean;
+    }
+    interface PvBadgeComponentAttributes {
+        "variant": 'primary' | 'secondary' | 'outline' | 'danger' | 'success' | 'warning';
+        "size": 'small' | 'medium' | 'large';
+        "rounded": boolean;
+        "filled": boolean;
+    }
+    interface PvButtonComponentAttributes {
+        "variant": 'primary' | 'secondary' | 'outline' | 'danger';
+        "size": 'small' | 'medium' | 'large';
+        "disabled": boolean;
+        "fullWidth": boolean;
+    }
+    interface PvLegendComponentAttributes {
+        "items": LegendItem[] | string;
+        "legendTitle": string;
+    }
+    interface PvTableComponentAttributes {
+        "columns": TableColumn[] | string;
+        "data": any[] | string;
+        "itemsPerPage": number;
+        "enableRowSelection": boolean;
+    }
+
     interface IntrinsicElements {
-        "my-component": MyComponent;
-        "pv-accordion-component": PvAccordionComponent;
-        "pv-badge-component": PvBadgeComponent;
-        "pv-button-component": PvButtonComponent;
-        "pv-legend-component": PvLegendComponent;
-        "pv-table-component": PvTableComponent;
+        "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
+        "pv-accordion-component": Omit<PvAccordionComponent, keyof PvAccordionComponentAttributes> & { [K in keyof PvAccordionComponent & keyof PvAccordionComponentAttributes]?: PvAccordionComponent[K] } & { [K in keyof PvAccordionComponent & keyof PvAccordionComponentAttributes as `attr:${K}`]?: PvAccordionComponentAttributes[K] } & { [K in keyof PvAccordionComponent & keyof PvAccordionComponentAttributes as `prop:${K}`]?: PvAccordionComponent[K] };
+        "pv-badge-component": Omit<PvBadgeComponent, keyof PvBadgeComponentAttributes> & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes]?: PvBadgeComponent[K] } & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes as `attr:${K}`]?: PvBadgeComponentAttributes[K] } & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes as `prop:${K}`]?: PvBadgeComponent[K] };
+        "pv-button-component": Omit<PvButtonComponent, keyof PvButtonComponentAttributes> & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes]?: PvButtonComponent[K] } & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes as `attr:${K}`]?: PvButtonComponentAttributes[K] } & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes as `prop:${K}`]?: PvButtonComponent[K] };
+        "pv-legend-component": Omit<PvLegendComponent, keyof PvLegendComponentAttributes> & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes]?: PvLegendComponent[K] } & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes as `attr:${K}`]?: PvLegendComponentAttributes[K] } & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes as `prop:${K}`]?: PvLegendComponent[K] } & OneOf<"items", PvLegendComponent["items"], PvLegendComponentAttributes["items"]>;
+        "pv-table-component": Omit<PvTableComponent, keyof PvTableComponentAttributes> & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes]?: PvTableComponent[K] } & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes as `attr:${K}`]?: PvTableComponentAttributes[K] } & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes as `prop:${K}`]?: PvTableComponent[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
-            "pv-accordion-component": LocalJSX.PvAccordionComponent & JSXBase.HTMLAttributes<HTMLPvAccordionComponentElement>;
-            "pv-badge-component": LocalJSX.PvBadgeComponent & JSXBase.HTMLAttributes<HTMLPvBadgeComponentElement>;
-            "pv-button-component": LocalJSX.PvButtonComponent & JSXBase.HTMLAttributes<HTMLPvButtonComponentElement>;
-            "pv-legend-component": LocalJSX.PvLegendComponent & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
-            "pv-table-component": LocalJSX.PvTableComponent & JSXBase.HTMLAttributes<HTMLPvTableComponentElement>;
+            "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "pv-accordion-component": LocalJSX.IntrinsicElements["pv-accordion-component"] & JSXBase.HTMLAttributes<HTMLPvAccordionComponentElement>;
+            "pv-badge-component": LocalJSX.IntrinsicElements["pv-badge-component"] & JSXBase.HTMLAttributes<HTMLPvBadgeComponentElement>;
+            "pv-button-component": LocalJSX.IntrinsicElements["pv-button-component"] & JSXBase.HTMLAttributes<HTMLPvButtonComponentElement>;
+            "pv-legend-component": LocalJSX.IntrinsicElements["pv-legend-component"] & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
+            "pv-table-component": LocalJSX.IntrinsicElements["pv-table-component"] & JSXBase.HTMLAttributes<HTMLPvTableComponentElement>;
         }
     }
 }
