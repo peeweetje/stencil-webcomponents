@@ -51,7 +51,7 @@ const Table = ({
     if (filterText) {
       const lowerFilter = filterText.toLowerCase();
       tempData = tempData.filter(row => {
-        const rowValues = Object.values(row).map(val => String(val));
+        const rowValues = Object.keys(row).map(key => row[key]).map(val => String(val));
         return rowValues.join(' ').toLowerCase().includes(lowerFilter);
       });
     }
