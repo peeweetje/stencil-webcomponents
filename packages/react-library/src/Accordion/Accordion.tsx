@@ -31,7 +31,7 @@ const Accordion = ({
     }, [items]);
 
     const toggleSection = (index: number) => {
-        const isOpen = openSections.includes(index);
+        const isOpen = openSections.indexOf(index) !== -1;
 
         if (allowMultiple) {
             if (isOpen) {
@@ -51,7 +51,7 @@ const Accordion = ({
     return (
         <div className={`accordion ${className || ''}`}>
             {parsedItems.map((item, index) => {
-                const isOpen = openSections.includes(index);
+                const isOpen = openSections.indexOf(index) !== -1;
                 return (
                     <div className={`accordion-item ${isOpen ? 'is-open' : ''}`} key={index}>
                         <button
