@@ -7,3 +7,5 @@ export { default as Accordion } from './Accordion/Accordion';
 export type { AccordionProps, AccordionItem } from './Accordion/Accordion';
 export { Button } from './Button/Button';
 export type { ButtonProps } from './Button/Button';
+export { Modal } from './Modal/Modal';
+export type { ModalProps } from './Modal/Modal';
