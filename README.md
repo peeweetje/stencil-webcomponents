@@ -103,6 +103,7 @@ yarn test
 | Legend | `<my-legend>` | Color legend for charts and visualizations |
 | Table | `<my-table>` | Data table component with sorting and pagination |
 | Accordion | `<my-accordion>` | Collapsible accordion component |
+| Modal | `<my-modal>` | open and close modal component |
 
 ## Best Practices
 
