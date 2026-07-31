@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modal Component</title>
+  <script type="module" src="/build/stencil-components.esm.js"></script>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Stencil Docs</h2>
+      </div>
+      <nav class="nav-menu">
+        <a class="nav-item" href="index.html">Introduction</a>
+         <a class="nav-item" href="accordion.html">Accordion Component</a>
+        <a class="nav-item" href="badge.html">Badge Component</a>
+        <a class="nav-item" href="button.html">Button Component</a>
+        <a class="nav-item" href="legend.html">Legend Component</a>
+        <a class="nav-item active" href="modal.html">Modal Component</a>
+        <a class="nav-item" href="table.html">Table Component</a>
+       
+       
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>Modal Component</h1>
+      <p>Modal dialog component with animations, accessibility features and configurable options.</p>
+
+      <div class="component-preview" style="flex-direction: column; gap: 20px;">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+          <pv-button-component onclick="document.getElementById('default-modal').isOpen = true">Open Default Modal</pv-button-component>
+          <pv-button-component onclick="document.getElementById('small-modal').isOpen = true">Open Small Modal</pv-button-component>
+          <pv-button-component onclick="document.getElementById('large-modal').isOpen = true">Open Large Modal</pv-button-component>
+          <pv-button-component onclick="document.getElementById('fullscreen-modal').isOpen = true">Open Fullscreen Modal</pv-button-component>
+        </div>
+      </div>
+
+      <pv-modal-component id="default-modal" modal-title="Default Modal">
+        <p>This is the modal body content. You can put any content here including forms, text, images or other components.</p>
+        <p style="margin-top: 16px;">Modal supports escape key to close, backdrop click and has smooth animations.</p>
+      </pv-modal-component>
+
+      <pv-modal-component id="small-modal" modal-title="Small Modal" size="small">
+        <p>Small size modal dialog</p>
+      </pv-modal-component>
+
+      <pv-modal-component id="large-modal" modal-title="Large Modal" size="large">
+        <p>Large size modal dialog with more space for content</p>
+        <p style="margin-top: 16px;">Suitable for displaying larger amounts of information or complex forms.</p>
+      </pv-modal-component>
+
+      <pv-modal-component id="fullscreen-modal" modal-title="Fullscreen Modal" size="fullscreen">
+        <p>Fullscreen modal that takes the entire viewport</p>
+      </pv-modal-component>
+
+      <table class="props-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>modal-title</code></td>
+            <td>string</td>
+            <td>-</td>
+            <td>Modal header title text</td>
+          </tr>
+          <tr>
+            <td><code>size</code></td>
+            <td>small | medium | large | fullscreen</td>
+            <td>medium</td>
+            <td>Modal dialog size variant</td>
+          </tr>
+          <tr>
+            <td><code>is-open</code></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>Controls modal visibility state</td>
+          </tr>
+          <tr>
+            <td><code>show-close-button</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Show close button in modal header</td>
+          </tr>
+          <tr>
+            <td><code>close-on-backdrop-click</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Close modal when clicking outside on backdrop</td>
+          </tr>
+          <tr>
+            <td><code>close-on-escape</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Close modal when escape key is pressed</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </main>
+  </div>
+</body>
+</html>
