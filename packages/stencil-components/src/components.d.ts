@@ -91,6 +91,46 @@ export namespace Components {
          */
         "legendTitle"?: string;
     }
+    interface PvModalComponent {
+        /**
+          * Programmatically close the modal
+         */
+        "close": () => Promise<void>;
+        /**
+          * If true, clicking outside the modal will close it
+          * @default true
+         */
+        "closeOnBackdropClick": boolean;
+        /**
+          * If true, pressing escape key will close the modal
+          * @default true
+         */
+        "closeOnEscape": boolean;
+        /**
+          * Controls if the modal is open
+          * @default false
+         */
+        "isOpen": boolean;
+        /**
+          * Modal title displayed in header
+          * @default ''
+         */
+        "modalTitle": string;
+        /**
+          * Programmatically open the modal
+         */
+        "open": () => Promise<void>;
+        /**
+          * If true, close button will be shown in header
+          * @default true
+         */
+        "showCloseButton": boolean;
+        /**
+          * Modal size variant
+          * @default 'medium'
+         */
+        "size": 'small' | 'medium' | 'large' | 'fullscreen';
+    }
     interface PvTableComponent {
         /**
           * The table column definitions
@@ -119,6 +159,10 @@ export interface PvAccordionComponentCustomEvent<T> extends CustomEvent<T> {
 export interface PvButtonComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPvButtonComponentElement;
+}
+export interface PvModalComponentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPvModalComponentElement;
 }
 export interface PvTableComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -177,6 +221,24 @@ declare global {
         prototype: HTMLPvLegendComponentElement;
         new (): HTMLPvLegendComponentElement;
     };
+    interface HTMLPvModalComponentElementEventMap {
+        "modalOpen": void;
+        "modalClose": void;
+    }
+    interface HTMLPvModalComponentElement extends Components.PvModalComponent, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPvModalComponentElementEventMap>(type: K, listener: (this: HTMLPvModalComponentElement, ev: PvModalComponentCustomEvent<HTMLPvModalComponentElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPvModalComponentElementEventMap>(type: K, listener: (this: HTMLPvModalComponentElement, ev: PvModalComponentCustomEvent<HTMLPvModalComponentElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPvModalComponentElement: {
+        prototype: HTMLPvModalComponentElement;
+        new (): HTMLPvModalComponentElement;
+    };
     interface HTMLPvTableComponentElementEventMap {
         "rowSort": any;
         "rowClick": any;
@@ -202,6 +264,7 @@ declare global {
         "pv-badge-component": HTMLPvBadgeComponentElement;
         "pv-button-component": HTMLPvButtonComponentElement;
         "pv-legend-component": HTMLPvLegendComponentElement;
+        "pv-modal-component": HTMLPvModalComponentElement;
         "pv-table-component": HTMLPvTableComponentElement;
     }
 }
@@ -292,6 +355,46 @@ declare namespace LocalJSX {
          */
         "legendTitle"?: string;
     }
+    interface PvModalComponent {
+        /**
+          * If true, clicking outside the modal will close it
+          * @default true
+         */
+        "closeOnBackdropClick"?: boolean;
+        /**
+          * If true, pressing escape key will close the modal
+          * @default true
+         */
+        "closeOnEscape"?: boolean;
+        /**
+          * Controls if the modal is open
+          * @default false
+         */
+        "isOpen"?: boolean;
+        /**
+          * Modal title displayed in header
+          * @default ''
+         */
+        "modalTitle"?: string;
+        /**
+          * Emitted when modal is closed
+         */
+        "onModalClose"?: (event: PvModalComponentCustomEvent<void>) => void;
+        /**
+          * Emitted when modal is opened
+         */
+        "onModalOpen"?: (event: PvModalComponentCustomEvent<void>) => void;
+        /**
+          * If true, close button will be shown in header
+          * @default true
+         */
+        "showCloseButton"?: boolean;
+        /**
+          * Modal size variant
+          * @default 'medium'
+         */
+        "size"?: 'small' | 'medium' | 'large' | 'fullscreen';
+    }
     interface PvTableComponent {
         /**
           * The table column definitions
@@ -341,6 +444,14 @@ declare namespace LocalJSX {
         "items": LegendItem[] | string;
         "legendTitle": string;
     }
+    interface PvModalComponentAttributes {
+        "isOpen": boolean;
+        "modalTitle": string;
+        "showCloseButton": boolean;
+        "closeOnBackdropClick": boolean;
+        "closeOnEscape": boolean;
+        "size": 'small' | 'medium' | 'large' | 'fullscreen';
+    }
     interface PvTableComponentAttributes {
         "columns": TableColumn[] | string;
         "data": any[] | string;
@@ -354,6 +465,7 @@ declare namespace LocalJSX {
         "pv-badge-component": Omit<PvBadgeComponent, keyof PvBadgeComponentAttributes> & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes]?: PvBadgeComponent[K] } & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes as `attr:${K}`]?: PvBadgeComponentAttributes[K] } & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes as `prop:${K}`]?: PvBadgeComponent[K] };
         "pv-button-component": Omit<PvButtonComponent, keyof PvButtonComponentAttributes> & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes]?: PvButtonComponent[K] } & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes as `attr:${K}`]?: PvButtonComponentAttributes[K] } & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes as `prop:${K}`]?: PvButtonComponent[K] };
         "pv-legend-component": Omit<PvLegendComponent, keyof PvLegendComponentAttributes> & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes]?: PvLegendComponent[K] } & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes as `attr:${K}`]?: PvLegendComponentAttributes[K] } & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes as `prop:${K}`]?: PvLegendComponent[K] } & OneOf<"items", PvLegendComponent["items"], PvLegendComponentAttributes["items"]>;
+        "pv-modal-component": Omit<PvModalComponent, keyof PvModalComponentAttributes> & { [K in keyof PvModalComponent & keyof PvModalComponentAttributes]?: PvModalComponent[K] } & { [K in keyof PvModalComponent & keyof PvModalComponentAttributes as `attr:${K}`]?: PvModalComponentAttributes[K] } & { [K in keyof PvModalComponent & keyof PvModalComponentAttributes as `prop:${K}`]?: PvModalComponent[K] };
         "pv-table-component": Omit<PvTableComponent, keyof PvTableComponentAttributes> & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes]?: PvTableComponent[K] } & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes as `attr:${K}`]?: PvTableComponentAttributes[K] } & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes as `prop:${K}`]?: PvTableComponent[K] };
     }
 }
@@ -366,6 +478,7 @@ declare module "@stencil/core" {
             "pv-badge-component": LocalJSX.IntrinsicElements["pv-badge-component"] & JSXBase.HTMLAttributes<HTMLPvBadgeComponentElement>;
             "pv-button-component": LocalJSX.IntrinsicElements["pv-button-component"] & JSXBase.HTMLAttributes<HTMLPvButtonComponentElement>;
             "pv-legend-component": LocalJSX.IntrinsicElements["pv-legend-component"] & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
+            "pv-modal-component": LocalJSX.IntrinsicElements["pv-modal-component"] & JSXBase.HTMLAttributes<HTMLPvModalComponentElement>;
             "pv-table-component": LocalJSX.IntrinsicElements["pv-table-component"] & JSXBase.HTMLAttributes<HTMLPvTableComponentElement>;
         }
     }
