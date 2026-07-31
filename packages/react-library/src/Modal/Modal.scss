@@ -2,3 +2,9 @@
 pv-modal-component {
   display: contents;
 }
+
+/* Ensure footer slot content has spacing between buttons */
+pv-modal-component [slot="footer"] {
+  display: flex;
+  gap: 12px;
+}
