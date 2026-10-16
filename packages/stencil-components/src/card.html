@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Card Component</title>
+  <script type="module" src="/build/stencil-components.esm.js"></script>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Stencil Docs</h2>
+      </div>
+      <nav class="nav-menu">
+        <a class="nav-item" href="index.html">Introduction</a>
+        <a class="nav-item" href="accordion.html">Accordion</a>
+        <a class="nav-item" href="badge.html">Badge</a>
+        <a class="nav-item" href="button.html">Button</a>
+        <a class="nav-item active" href="card.html">Card</a>
+        <a class="nav-item" href="legend.html">Legend</a>
+        <a class="nav-item" href="modal.html">Modal</a>
+        <a class="nav-item" href="table.html">Table</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>Card Component</h1>
+      <p>Flexible card with header, media, body and footer slots. Supports variants, padding and clickable state.</p>
+
+      <div class="component-preview" style="flex-direction: column; gap: 20px;">
+        <div>
+          <h3 style="text-align: center; margin-top: 0;">Basic</h3>
+          <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+            <pv-card-component heading="Card title" subtitle="Card subtitle" style="max-width: 320px;">
+              This is the card body. Use the default slot for any content.
+              <div slot="footer"><pv-button-component size="small">Action</pv-button-component></div>
+            </pv-card-component>
+            <pv-card-component variant="elevated" heading="Elevated" style="max-width: 320px;">
+              Elevated cards cast a soft shadow instead of a border.
+            </pv-card-component>
+            <pv-card-component variant="outlined" heading="Outlined" style="max-width: 320px;">
+              Outlined cards use a blue accent border.
+            </pv-card-component>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="text-align: center; margin-top: 0;">With image &amp; clickable</h3>
+          <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+            <pv-card-component clickable heading="Clickable card" subtitle="Keyboard accessible" image-src="https://picsum.photos/320/180" image-alt="Random image" style="max-width: 320px;">
+              Click or press Enter to trigger <code>cardClick</code>.
+            </pv-card-component>
+            <pv-card-component padding="large" heading="Large padding" style="max-width: 320px;">
+              Padding variants: <code>small | medium | large</code>.
+            </pv-card-component>
+          </div>
+        </div>
+      </div>
+
+      <table class="props-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>heading</code></td><td>string</td><td>''</td><td>Card heading in the header</td></tr>
+          <tr><td><code>subtitle</code></td><td>string</td><td>''</td><td>Subtitle below the heading</td></tr>
+          <tr><td><code>image-src</code></td><td>string</td><td>—</td><td>Image shown at the top of the card</td></tr>
+          <tr><td><code>image-alt</code></td><td>string</td><td>''</td><td>Alt text for the card image</td></tr>
+          <tr><td><code>variant</code></td><td>default | outlined | elevated</td><td>default</td><td>Card style variant</td></tr>
+          <tr><td><code>padding</code></td><td>small | medium | large</td><td>medium</td><td>Body padding size</td></tr>
+          <tr><td><code>clickable</code></td><td>boolean</td><td>false</td><td>Makes the card clickable, emits cardClick</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Slots</h3>
+      <table class="props-table">
+        <thead><tr><th>Slot</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>default</code></td><td>Card body content</td></tr>
+          <tr><td><code>header</code></td><td>Custom header (overrides heading/subtitle)</td></tr>
+          <tr><td><code>media</code></td><td>Custom media (overrides image-src)</td></tr>
+          <tr><td><code>footer</code></td><td>Footer actions</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Events</h3>
+      <table class="props-table">
+        <thead><tr><th>Event</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>cardClick</code></td><td>Emitted when a clickable card is clicked</td></tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+  <script>
+    document.querySelectorAll('pv-card-component[clickable]').forEach(c =>
+      c.addEventListener('cardClick', () => alert('Card clicked!'))
+    );
+  </script>
+</body>
+</html>
