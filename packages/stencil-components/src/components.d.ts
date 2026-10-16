@@ -81,6 +81,113 @@ export namespace Components {
          */
         "variant": 'primary' | 'secondary' | 'outline' | 'danger';
     }
+    interface PvCardComponent {
+        /**
+          * If true, the card behaves as a clickable element
+          * @default false
+         */
+        "clickable": boolean;
+        /**
+          * The card heading displayed in the header
+          * @default ''
+         */
+        "heading": string;
+        /**
+          * Alt text for the card image
+          * @default ''
+         */
+        "imageAlt": string;
+        /**
+          * Image source displayed at the top of the card
+         */
+        "imageSrc"?: string;
+        /**
+          * The card padding size
+          * @default 'medium'
+         */
+        "padding": 'small' | 'medium' | 'large';
+        /**
+          * The card subtitle displayed below the heading
+          * @default ''
+         */
+        "subtitle": string;
+        /**
+          * The card variant style
+          * @default 'default'
+         */
+        "variant": 'default' | 'outlined' | 'elevated';
+    }
+    interface PvInputComponent {
+        /**
+          * If true, the input is disabled
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Error message shown when invalid
+          * @default ''
+         */
+        "errorMessage": string;
+        /**
+          * If true, the input takes the full width of its container
+          * @default false
+         */
+        "fullWidth": boolean;
+        /**
+          * Helper text shown below the input
+          * @default ''
+         */
+        "helperText": string;
+        /**
+          * If true, the input shows an error state
+          * @default false
+         */
+        "invalid": boolean;
+        /**
+          * The input label
+          * @default ''
+         */
+        "label": string;
+        /**
+          * The name of the input (for forms)
+          * @default ''
+         */
+        "name": string;
+        /**
+          * Placeholder text
+          * @default ''
+         */
+        "placeholder": string;
+        /**
+          * If true, the input is readonly
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * If true, the input is required
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Programmatically focus the input
+         */
+        "setFocus": () => Promise<void>;
+        /**
+          * The input size
+          * @default 'medium'
+         */
+        "size": 'small' | 'medium' | 'large';
+        /**
+          * The input type
+          * @default 'text'
+         */
+        "type": 'text' | 'password' | 'email' | 'number' | 'search' | 'tel' | 'url';
+        /**
+          * The input value
+          * @default ''
+         */
+        "value": string;
+    }
     interface PvLegendComponent {
         /**
           * The legend items
@@ -160,6 +267,14 @@ export interface PvButtonComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPvButtonComponentElement;
 }
+export interface PvCardComponentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPvCardComponentElement;
+}
+export interface PvInputComponentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPvInputComponentElement;
+}
 export interface PvModalComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPvModalComponentElement;
@@ -215,6 +330,42 @@ declare global {
         prototype: HTMLPvButtonComponentElement;
         new (): HTMLPvButtonComponentElement;
     };
+    interface HTMLPvCardComponentElementEventMap {
+        "cardClick": MouseEvent;
+    }
+    interface HTMLPvCardComponentElement extends Components.PvCardComponent, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPvCardComponentElementEventMap>(type: K, listener: (this: HTMLPvCardComponentElement, ev: PvCardComponentCustomEvent<HTMLPvCardComponentElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPvCardComponentElementEventMap>(type: K, listener: (this: HTMLPvCardComponentElement, ev: PvCardComponentCustomEvent<HTMLPvCardComponentElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPvCardComponentElement: {
+        prototype: HTMLPvCardComponentElement;
+        new (): HTMLPvCardComponentElement;
+    };
+    interface HTMLPvInputComponentElementEventMap {
+        "inputChange": string;
+        "inputBlur": FocusEvent;
+        "inputFocus": FocusEvent;
+    }
+    interface HTMLPvInputComponentElement extends Components.PvInputComponent, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPvInputComponentElementEventMap>(type: K, listener: (this: HTMLPvInputComponentElement, ev: PvInputComponentCustomEvent<HTMLPvInputComponentElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPvInputComponentElementEventMap>(type: K, listener: (this: HTMLPvInputComponentElement, ev: PvInputComponentCustomEvent<HTMLPvInputComponentElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPvInputComponentElement: {
+        prototype: HTMLPvInputComponentElement;
+        new (): HTMLPvInputComponentElement;
+    };
     interface HTMLPvLegendComponentElement extends Components.PvLegendComponent, HTMLStencilElement {
     }
     var HTMLPvLegendComponentElement: {
@@ -263,6 +414,8 @@ declare global {
         "pv-accordion-component": HTMLPvAccordionComponentElement;
         "pv-badge-component": HTMLPvBadgeComponentElement;
         "pv-button-component": HTMLPvButtonComponentElement;
+        "pv-card-component": HTMLPvCardComponentElement;
+        "pv-input-component": HTMLPvInputComponentElement;
         "pv-legend-component": HTMLPvLegendComponentElement;
         "pv-modal-component": HTMLPvModalComponentElement;
         "pv-table-component": HTMLPvTableComponentElement;
@@ -344,6 +497,125 @@ declare namespace LocalJSX {
           * @default 'primary'
          */
         "variant"?: 'primary' | 'secondary' | 'outline' | 'danger';
+    }
+    interface PvCardComponent {
+        /**
+          * If true, the card behaves as a clickable element
+          * @default false
+         */
+        "clickable"?: boolean;
+        /**
+          * The card heading displayed in the header
+          * @default ''
+         */
+        "heading"?: string;
+        /**
+          * Alt text for the card image
+          * @default ''
+         */
+        "imageAlt"?: string;
+        /**
+          * Image source displayed at the top of the card
+         */
+        "imageSrc"?: string;
+        /**
+          * Emitted when a clickable card is clicked
+         */
+        "onCardClick"?: (event: PvCardComponentCustomEvent<MouseEvent>) => void;
+        /**
+          * The card padding size
+          * @default 'medium'
+         */
+        "padding"?: 'small' | 'medium' | 'large';
+        /**
+          * The card subtitle displayed below the heading
+          * @default ''
+         */
+        "subtitle"?: string;
+        /**
+          * The card variant style
+          * @default 'default'
+         */
+        "variant"?: 'default' | 'outlined' | 'elevated';
+    }
+    interface PvInputComponent {
+        /**
+          * If true, the input is disabled
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Error message shown when invalid
+          * @default ''
+         */
+        "errorMessage"?: string;
+        /**
+          * If true, the input takes the full width of its container
+          * @default false
+         */
+        "fullWidth"?: boolean;
+        /**
+          * Helper text shown below the input
+          * @default ''
+         */
+        "helperText"?: string;
+        /**
+          * If true, the input shows an error state
+          * @default false
+         */
+        "invalid"?: boolean;
+        /**
+          * The input label
+          * @default ''
+         */
+        "label"?: string;
+        /**
+          * The name of the input (for forms)
+          * @default ''
+         */
+        "name"?: string;
+        /**
+          * Emitted when the input loses focus
+         */
+        "onInputBlur"?: (event: PvInputComponentCustomEvent<FocusEvent>) => void;
+        /**
+          * Emitted when the input value changes
+         */
+        "onInputChange"?: (event: PvInputComponentCustomEvent<string>) => void;
+        /**
+          * Emitted when the input gains focus
+         */
+        "onInputFocus"?: (event: PvInputComponentCustomEvent<FocusEvent>) => void;
+        /**
+          * Placeholder text
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
+          * If true, the input is readonly
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * If true, the input is required
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * The input size
+          * @default 'medium'
+         */
+        "size"?: 'small' | 'medium' | 'large';
+        /**
+          * The input type
+          * @default 'text'
+         */
+        "type"?: 'text' | 'password' | 'email' | 'number' | 'search' | 'tel' | 'url';
+        /**
+          * The input value
+          * @default ''
+         */
+        "value"?: string;
     }
     interface PvLegendComponent {
         /**
@@ -440,6 +712,30 @@ declare namespace LocalJSX {
         "disabled": boolean;
         "fullWidth": boolean;
     }
+    interface PvCardComponentAttributes {
+        "heading": string;
+        "subtitle": string;
+        "imageSrc": string;
+        "imageAlt": string;
+        "variant": 'default' | 'outlined' | 'elevated';
+        "padding": 'small' | 'medium' | 'large';
+        "clickable": boolean;
+    }
+    interface PvInputComponentAttributes {
+        "label": string;
+        "value": string;
+        "placeholder": string;
+        "type": 'text' | 'password' | 'email' | 'number' | 'search' | 'tel' | 'url';
+        "size": 'small' | 'medium' | 'large';
+        "disabled": boolean;
+        "required": boolean;
+        "readonly": boolean;
+        "invalid": boolean;
+        "errorMessage": string;
+        "helperText": string;
+        "fullWidth": boolean;
+        "name": string;
+    }
     interface PvLegendComponentAttributes {
         "items": LegendItem[] | string;
         "legendTitle": string;
@@ -464,6 +760,8 @@ declare namespace LocalJSX {
         "pv-accordion-component": Omit<PvAccordionComponent, keyof PvAccordionComponentAttributes> & { [K in keyof PvAccordionComponent & keyof PvAccordionComponentAttributes]?: PvAccordionComponent[K] } & { [K in keyof PvAccordionComponent & keyof PvAccordionComponentAttributes as `attr:${K}`]?: PvAccordionComponentAttributes[K] } & { [K in keyof PvAccordionComponent & keyof PvAccordionComponentAttributes as `prop:${K}`]?: PvAccordionComponent[K] };
         "pv-badge-component": Omit<PvBadgeComponent, keyof PvBadgeComponentAttributes> & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes]?: PvBadgeComponent[K] } & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes as `attr:${K}`]?: PvBadgeComponentAttributes[K] } & { [K in keyof PvBadgeComponent & keyof PvBadgeComponentAttributes as `prop:${K}`]?: PvBadgeComponent[K] };
         "pv-button-component": Omit<PvButtonComponent, keyof PvButtonComponentAttributes> & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes]?: PvButtonComponent[K] } & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes as `attr:${K}`]?: PvButtonComponentAttributes[K] } & { [K in keyof PvButtonComponent & keyof PvButtonComponentAttributes as `prop:${K}`]?: PvButtonComponent[K] };
+        "pv-card-component": Omit<PvCardComponent, keyof PvCardComponentAttributes> & { [K in keyof PvCardComponent & keyof PvCardComponentAttributes]?: PvCardComponent[K] } & { [K in keyof PvCardComponent & keyof PvCardComponentAttributes as `attr:${K}`]?: PvCardComponentAttributes[K] } & { [K in keyof PvCardComponent & keyof PvCardComponentAttributes as `prop:${K}`]?: PvCardComponent[K] };
+        "pv-input-component": Omit<PvInputComponent, keyof PvInputComponentAttributes> & { [K in keyof PvInputComponent & keyof PvInputComponentAttributes]?: PvInputComponent[K] } & { [K in keyof PvInputComponent & keyof PvInputComponentAttributes as `attr:${K}`]?: PvInputComponentAttributes[K] } & { [K in keyof PvInputComponent & keyof PvInputComponentAttributes as `prop:${K}`]?: PvInputComponent[K] };
         "pv-legend-component": Omit<PvLegendComponent, keyof PvLegendComponentAttributes> & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes]?: PvLegendComponent[K] } & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes as `attr:${K}`]?: PvLegendComponentAttributes[K] } & { [K in keyof PvLegendComponent & keyof PvLegendComponentAttributes as `prop:${K}`]?: PvLegendComponent[K] } & OneOf<"items", PvLegendComponent["items"], PvLegendComponentAttributes["items"]>;
         "pv-modal-component": Omit<PvModalComponent, keyof PvModalComponentAttributes> & { [K in keyof PvModalComponent & keyof PvModalComponentAttributes]?: PvModalComponent[K] } & { [K in keyof PvModalComponent & keyof PvModalComponentAttributes as `attr:${K}`]?: PvModalComponentAttributes[K] } & { [K in keyof PvModalComponent & keyof PvModalComponentAttributes as `prop:${K}`]?: PvModalComponent[K] };
         "pv-table-component": Omit<PvTableComponent, keyof PvTableComponentAttributes> & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes]?: PvTableComponent[K] } & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes as `attr:${K}`]?: PvTableComponentAttributes[K] } & { [K in keyof PvTableComponent & keyof PvTableComponentAttributes as `prop:${K}`]?: PvTableComponent[K] };
@@ -477,6 +775,8 @@ declare module "@stencil/core" {
             "pv-accordion-component": LocalJSX.IntrinsicElements["pv-accordion-component"] & JSXBase.HTMLAttributes<HTMLPvAccordionComponentElement>;
             "pv-badge-component": LocalJSX.IntrinsicElements["pv-badge-component"] & JSXBase.HTMLAttributes<HTMLPvBadgeComponentElement>;
             "pv-button-component": LocalJSX.IntrinsicElements["pv-button-component"] & JSXBase.HTMLAttributes<HTMLPvButtonComponentElement>;
+            "pv-card-component": LocalJSX.IntrinsicElements["pv-card-component"] & JSXBase.HTMLAttributes<HTMLPvCardComponentElement>;
+            "pv-input-component": LocalJSX.IntrinsicElements["pv-input-component"] & JSXBase.HTMLAttributes<HTMLPvInputComponentElement>;
             "pv-legend-component": LocalJSX.IntrinsicElements["pv-legend-component"] & JSXBase.HTMLAttributes<HTMLPvLegendComponentElement>;
             "pv-modal-component": LocalJSX.IntrinsicElements["pv-modal-component"] & JSXBase.HTMLAttributes<HTMLPvModalComponentElement>;
             "pv-table-component": LocalJSX.IntrinsicElements["pv-table-component"] & JSXBase.HTMLAttributes<HTMLPvTableComponentElement>;
