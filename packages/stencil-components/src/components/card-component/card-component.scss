@@ -1,0 +1,117 @@
+:host {
+  display: block;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: inherit;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-default {
+  border: 1px solid #dee2e6;
+}
+
+.card-outlined {
+  border: 2px solid #0d6efd;
+}
+
+.card-elevated {
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card-padding-small .card-body {
+  padding: 0.5rem 0.75rem;
+}
+
+.card-padding-medium .card-body {
+  padding: 1rem 1.25rem;
+}
+
+.card-padding-large .card-body {
+  padding: 1.5rem 2rem;
+}
+
+.card-clickable {
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid #0d6efd;
+    outline-offset: 2px;
+  }
+}
+
+.card-media {
+  width: 100%;
+  overflow: hidden;
+
+  ::slotted(img),
+  .card-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.card-header {
+  padding: 1rem 1.25rem 0;
+}
+
+.card-padding-small .card-header {
+  padding: 0.5rem 0.75rem 0;
+}
+
+.card-padding-large .card-header {
+  padding: 1.5rem 2rem 0;
+}
+
+.card-heading {
+  margin: 0 0 0.25rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.card-subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.card-body {
+  flex: 1;
+  font-size: 1rem;
+  color: #212529;
+}
+
+.card-body:empty,
+.card-footer:empty,
+.card-header:empty {
+  display: none;
+}
+
+.card-footer {
+  padding: 0 1.25rem 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.card-padding-small .card-footer {
+  padding: 0 0.75rem 0.5rem;
+}
+
+.card-padding-large .card-footer {
+  padding: 0 2rem 1.5rem;
+}
